@@ -57,6 +57,64 @@ a:hover {
     margin-bottom: 30px;
 }
 
+/* USER PROFILE CSS */
+.profile {
+    background: rgba(19, 35, 47, 0.9); 
+    text-align: center;
+    padding: 20px; /*30px*/
+    max-width: 1400px;
+    margin: 0px auto;
+    margin-top: 130px; /*150px center*/
+    border-radius: 6px;
+    box-shadow: 0 4px 10px 4px rgba(25, 35, 47, 0.5);
+}
+
+.user {
+    float: left;
+    text-align: left;
+    padding: 5px 5px 0px 5px; /*TOP RIGHT DOWN LEFT */
+    width: 450px;
+    height: 400px;
+    /*max-width: 600px;*/
+    border: 1px solid rgba(26, 177, 136, .2);
+    box-shadow: 0 4px 10px 4px rgba(25, 35, 47, 0.2);
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.video {
+    float: center;
+    padding: 5px 0px 30px 10px; /*30px*/
+    margin-left: auto;
+    width: 905px;
+    height: 400px;
+    border-left: 3px solid rgba(26, 177, 136, .8);
+    margin-bottom: 20px;
+}
+
+.clear {
+    clear:both;
+}
+
+#infopanel {
+    text-align: left;
+    color: #1ab188;
+    margin: 0px 0px 20px 0px;
+}
+
+#info {
+    text-align: left;
+    color: #1ab188;
+    margin: 0px 0px 20px 0px;
+}
+
+#videos {
+    text-align: center;
+    color: #1ab188;
+    font-weight: 600;
+}
+/* END USER PROFILE CSS */
+
 .tab-group {
   list-style: none;
   padding: 0;
@@ -98,6 +156,7 @@ a:hover {
   display: none;
 }
 
+
 h1 {
   text-align: center;
   color: #ffffff;
@@ -110,6 +169,12 @@ h2 {
     color: #1ab188;
     font-weight: 1000;
     margin: 0;
+}
+
+h3 {
+    text-align: left;
+    font-weight: 600;
+    color: #1ab188;
 }
 
 span { /* For * */

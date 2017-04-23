@@ -30,7 +30,7 @@
         <div class="banner">
             <a href="/">App Name</a>
         </div>
-        <div class="form">
+        <div class="profile">
             <h1>Welcome  <?= $first_name.' '.$last_name ?></h1>
             
             <p>
@@ -59,10 +59,33 @@
                 }
             ?>
             
-            <h2><?php echo $first_name.' '.$last_name; ?></h2>
-            <p><?= $email ?></p>
+            <div class="user">
+                <h2 id="infopanel"><u>User Information</u></h2>
+                
+                <p id="info">
+                    <?php 
+                    $strfirst = ucwords($first_name);
+                    $strlast = ucwords($last_name); 
+                    echo nl2br("<u>First Name:</u> $strfirst 
+                        <u>Last Name:</u> $strlast
+                        <u>Username:</u> $username
+                        <u>E-mail Address:</u> $email");
+                    
+                    ?>
+                </p>
+                
+            </div>
             
-            <a href="logout.php"><button class="button button-block" name="logout"/>Log Out</button></a>
+            <div class="video">
+                <h2 id="videos"><u>My Videos</u></h2>
+            </div>
+            
+            <div class="clear">
+            </div>
+            
+            
+            <a href="logout.php"><button class="button button-block" name="logout"/>Log Out</butto></a>
+        
         </div>
         <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
         <script src="js/index.js"></script>
