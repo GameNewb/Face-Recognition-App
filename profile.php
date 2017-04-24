@@ -16,6 +16,27 @@
         $username = $_SESSION['username'];
         $email = $_SESSION['email'];
         $active = $_SESSION['active'];
+        $msg = "";
+        
+        // Upload button is pressed
+        if(isset($_POST['upload'])) {
+            $target = "avatars/".basename($_FILES['image']['name']);
+            
+            $db = mysqli_connect("localhost", "root", "", "accounts");
+            
+            // Get data
+            $image = $_FILES['image']['name'];
+            //$sql = "INSERT INTO users (avatar) VALUES ('$image')";
+            $sql2 = "UPDATE users SET avatar = '".$_FILES['image']['name']."' WHERE username = '".$_SESSION['username']."'";
+            mysqli_query($db, $sql2);
+            
+            if(move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+                $msg = "Image uploaded successfully";
+            }
+            else{
+                $msg = "An issue occurred while uploading the image.";
+            }
+        }
     }
 ?>
 
@@ -61,15 +82,42 @@
             
             <div class="user">
                 <h2 id="infopanel"><u>User Information</u></h2>
-                
+                <div class="avatar">
+                    <?php
+                        $db = mysqli_connect("localhost", "root", "", "accounts");
+                        $sql = "SELECT * FROM users";
+                        $result = mysqli_query($db, $sql);
+                        while($row = mysqli_fetch_array($result)) {
+                            echo "<div id='img_div'>";
+                                echo "<img src='avatars/".$row['avatar']."' height='150' width='200'>";
+                            echo "</div>";
+                        }
+                    ?>
+                    <form method="post" action="profile.php" enctype="multipart/form-data">
+                        <input type="hidden" name="size" value="10">
+                        <div class="fileinputs">
+                            <input type="file" name="image">
+                           
+                            
+                            <input type="submit" name="upload" value="Upload Image">
+                            
+                        
+                        </div>
+                        
+                    </form>
+                </div>
                 <p id="info">
                     <?php 
                     $strfirst = ucwords($first_name);
                     $strlast = ucwords($last_name); 
                     echo nl2br("<u>First Name:</u> $strfirst 
+                    
                         <u>Last Name:</u> $strlast
+                        
                         <u>Username:</u> $username
-                        <u>E-mail Address:</u> $email");
+                        
+                        <u>E-mail Address:</u> 
+                        $email");
                     
                     ?>
                 </p>
