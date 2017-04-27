@@ -67,7 +67,7 @@
                 mail($to, $subject, $message_body);
             
                 // Redirect user
-                header("location: profile.php");
+                header("location: account_verification.php");
         }
         else
         {

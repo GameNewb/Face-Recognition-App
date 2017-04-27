@@ -1,6 +1,6 @@
 <?php 
     /* Main page with two forms: sign up and log in */
-    require 'database.php';
+    require 'CreateDb.php';
     session_start();
 ?>
 
