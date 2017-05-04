@@ -81,51 +81,75 @@
             ?>
             
             <div class="user">
-                <h2 id="infopanel"><u>User Information</u></h2>
-                <div class="avatar">
-                    <?php
-                        $db = mysqli_connect("localhost", "root", "", "accounts");
-                        $sql = "SELECT * FROM users";
-                        $result = mysqli_query($db, $sql);
-                        while($row = mysqli_fetch_array($result)) {
-                            echo "<div id='img_div'>";
-                                echo "<img src='avatars/".$row['avatar']."' height='150' width='200'>";
-                            echo "</div>";
-                        }
-                    ?>
-                    <form method="post" action="profile.php" enctype="multipart/form-data">
-                        <input type="hidden" name="size" value="10">
-                        <div class="fileinputs">
-                            <input type="file" name="image">
-                           
-                            
-                            <input type="submit" name="upload" value="Upload Image">
-                            
-                        
-                        </div>
-                        
-                    </form>
+                <div class="headerpanel">
+                    <h2 id="infopanel"><u>User Information</u></h2>
                 </div>
-                <p id="info">
-                    <?php 
-                    $strfirst = ucwords($first_name);
-                    $strlast = ucwords($last_name); 
-                    echo nl2br("<u>First Name:</u> $strfirst 
-                    
-                        <u>Last Name:</u> $strlast
-                        
-                        <u>Username:</u> $username
-                        
-                        <u>E-mail Address:</u> 
-                        $email");
-                    
-                    ?>
-                </p>
-                
+                <div class="userpanel">
+                    <div class="avatar">
+                        <?php
+                            $db = mysqli_connect("localhost", "root", "", "accounts");
+                            $sql = "SELECT * FROM users";
+                            $result = mysqli_query($db, $sql);
+                            while($row = mysqli_fetch_array($result)) {
+                                echo "<div id='img_div'>";
+                                    echo "<img src='avatars/".$row['avatar']."' height='150' width='200'>";
+                                echo "</div>";
+                            }
+                        ?>
+                        <form method="post" action="profile.php" enctype="multipart/form-data">
+                            <input type="hidden" name="size" value="10">
+                            <div class="fileinputs">
+                                <input type="file" name="image">
+
+
+                                <input type="submit" name="upload" value="Upload Image">
+
+
+                            </div>
+
+                        </form>
+                    </div>
+                    <p id="info">
+                        <?php 
+                        $strfirst = ucwords($first_name);
+                        $strlast = ucwords($last_name); 
+                        echo nl2br("<u>First Name:</u> $strfirst 
+
+                            <u>Last Name:</u> $strlast
+
+                            <u>Username:</u> $username
+
+                            <u>E-mail Address:</u> 
+                            $email");
+
+                        ?>
+                    </p>
+                </div>
             </div>
             
             <div class="video">
-                <h2 id="videos"><u>My Videos</u></h2>
+                <div class="videosheaderpanel">
+                    <h2 id="videosheader"><u>My Videos</u></h2>
+                </div>
+                
+                <div id="my_videos">
+                    <div id="uploadvideo">
+                        <div id="allvideos">
+                              This is a test
+                        </div>
+                        <div id="fileupload">
+                            <form action="upload_file.php" method="post" enctype="multipart/form-data">
+                            <input type="file" name="file" id="file" /> 
+                        
+                        </div>
+                        <div id="submitupload">
+                            <input type="submit" name="upload" value="Upload Video"/>
+                            </form>
+                        </div>
+                     
+                    </div>
+                    <div class="clear"></div>
+                </div>
             </div>
             
             <div class="clear">

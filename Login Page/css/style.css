@@ -88,7 +88,7 @@ a:hover {
     margin-left: auto;
     width: 905px;
     height: 400px;
-    border-left: 3px solid rgba(26, 177, 136, .8);
+    border: 3px solid rgba(26, 177, 136, .8);
     margin-bottom: 20px;
 }
 
@@ -96,19 +96,52 @@ a:hover {
     clear:both;
 }
 
+/* PROFILE SECTION */
+.headerpanel {
+    width: 430px;
+    max-width: 430px;
+    height: 40px;
+    margin: 4px;
+    padding: 1px;
+    border: 1px dashed rgba(26, 177, 136, .7);
+    
+}
+
+.videosheaderpanel {
+    width: 870px;
+    max-width: 870px;
+    height: 40px;
+    margin: 4px;
+    padding: 1px;
+    border: 1px dashed rgba(26, 177, 136, .7);
+    
+}
+
+.userpanel {
+    width: 430px;
+    max-width: 430px;
+    height: 340px;
+    padding: inherit;   
+    margin: 4px;
+    border: 1px dashed rgba(26, 177, 136, .7);
+}
+
 #infopanel {
     text-align: left;
     color: #1ab188;
     margin: 0px 0px 20px 0px;
+    padding: 1px;
+    font-weight: 800;
+    font-size: 32px;
 }
 
 .avatar {
     float: left;
-    width: 200px;
-    height: 200px;
+    width: 202px;
+    height: 215px;
     margin: 0px 10px 0px 0px;
     max-height: 400px;
-    border: 1px dashed rgba(26, 177, 136, .8)
+    border: 1px dashed rgba(26, 177, 136, .8);
 }
 
 .button2 {
@@ -132,15 +165,79 @@ a:hover {
     margin: 0px 0px 20px 0px;
 }
 
-#videos {
+#videosheader {
     text-align: center;
     color: #1ab188;
-    font-weight: 600;
+    font-size: 32px;
+    font-weight: 800;
+}
+
+#my_videos {
+    width: 870px;
+    height: 335px;
+    padding: inherit;   
+    margin: 4px;
+    border: 1px dashed rgba(26, 177, 136, .7);  
+}
+
+#allvideos {
+    width: 845px;
+    height: 280px;
+    padding: 4px;
+    margin: 1px;
+    border: 1px solid rgba(26, 177, 136, .7);
 }
 
 /* END USER PROFILE CSS */
 
 /* ----------------------------------------------------------------------------------------------- */
+
+/* SUBMIT BUTTON CSS */
+#fileupload{
+    float: left;
+    height: 40px;
+    width: 300px;
+    padding: 5px;
+    margin: auto;
+}
+
+#submitupload{
+    height: 40px;
+    width: 200px;
+    margin: auto;
+    margin-right: 8px;
+    padding: 5px;
+    float: right;
+   
+}
+
+input[type=file] {
+    padding:5px 15px;  
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+    background: #0066A2;
+    color: white;
+    border-style: outset;
+    border-color: #0066A2;
+    font: bold 15px arial, sans-serif;
+    text-shadow:none;
+}
+input[type=submit] {
+    padding:5px 15px; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+    background: #0066A2;
+    color: white;
+    border-style: outset;
+    border-color: #0066A2;
+    font: bold 15px arial, sans-serif;
+    text-shadow:none;
+}
+
 .tab-group {
   list-style: none;
   padding: 0;
