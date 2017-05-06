@@ -90,7 +90,8 @@ a:hover {
     margin-left: auto;
     width: 905px;
     height: 400px;
-    border: 3px solid rgba(26, 177, 136, .8);
+    border: 1px solid rgba(26, 177, 136, .2);
+    border-left: 2px solid rgba(26, 177, 136, .8);
     margin-bottom: 20px;
 }
 
@@ -108,8 +109,6 @@ a:hover {
     height: 40px;
     margin: 4px;
     padding: 1px;
-    border: 1px dashed rgba(26, 177, 136, .7);
-    
 }
 
 .videosheaderpanel {
@@ -118,8 +117,6 @@ a:hover {
     height: 40px;
     margin: 4px;
     padding: 1px;
-    border: 1px dashed rgba(26, 177, 136, .7);
-    
 }
 
 .userpanel {
@@ -138,6 +135,11 @@ a:hover {
     padding: 1px;
     font-weight: 800;
     font-size: 32px;
+    -webkit-border-top-left-radius: 4px;
+    -webkit-border-top-right-radius: 4px;
+    border-top-left-radius: 5px; 
+    border-top-right-radius: 5px;
+    background: #235145;
 }
 
 .avatar {
@@ -174,6 +176,11 @@ a:hover {
     color: #1ab188;
     font-size: 32px;
     font-weight: 800;
+    -webkit-border-top-left-radius: 4px;
+    -webkit-border-top-right-radius: 4px;
+    border-top-left-radius: 5px; 
+    border-top-right-radius: 5px;
+    background: #235145;
 }
 
 #my_videos {

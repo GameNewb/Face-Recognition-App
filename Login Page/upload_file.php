@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $allowedExts = array("mp3", "mp4", "wma", "avi");
 $extension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
 
@@ -59,17 +59,27 @@ else
                         <?php 
                         if(!$invalidFile)
                         {
-                            if($uploadSuccessful && !$fileExists) # If upload is successful and file does not exists, upload
+                            // If upload is successful and file does not exists, upload
+                            if($uploadSuccessful && !$fileExists) 
                             {
+                                $username = $_SESSION['username'];
+                                $videoname = $_FILES['file']['name'];
+                                $db = mysqli_connect("localhost", "root", "", "accounts");
+                                
+                                // Display the video details to the user
                                 echo "Upload: " . $_FILES["file"]["name"] . "<br />";
                                 echo "Type: " . $_FILES["file"]["type"] . "<br />";
                                 echo "Size: " . ($_FILES["file"]["size"] / 1024) . " Kb<br />";
                                 echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br />";
-
+                                
+                                // Move file to local folder and query to database
                                 move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $_FILES["file"]["name"]);
+                                $uploadToDatabase = "INSERT INTO videos (username) VALUES ('$username')";
+                                mysqli_query($db, $uploadToDatabase);
+                                    
                                 echo "Stored in: " . "upload/" . $_FILES["file"]["name"];
                             }
-                            elseif($fileExists) # If file exists, return error message
+                            elseif($fileExists) // If file exists, return error message
                             {
                                 echo "Upload: " . $_FILES["file"]["name"] . "<br />";
                                 echo "Type: " . $_FILES["file"]["type"] . "<br />";
@@ -86,7 +96,7 @@ else
                         }
                         else
                         {
-                            echo "Invalid file";
+                            echo "Invalid file. Video Format not supported.";
                         }
                        
                         ?>
@@ -95,7 +105,8 @@ else
                 </div> <!-- Upload Panel -->
                 
             </div> 
-            <h4>Redirecting to profile page in 10 seconds...</h4>
+            <!-- Redirect user back to profile page after uploading -->
+            <h4>Redirecting to profile page in 10 seconds...</h4> 
             <?php
                 header( "refresh: 10; url=profile.php" );
             ?>
