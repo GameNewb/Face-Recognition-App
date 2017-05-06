@@ -32,9 +32,13 @@
             ?>
             <video id="my-video" class="video-js" controls preload="auto" width="640" height="320"
             poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
-            <source src='videos/<?php echo $video; ?>' type='video/mp4'>
+            <source src="videos/<?php echo $video; ?>" type="video/mp4">
+                
+            <!-- Fallback in case the users browsers doesn't support HTML5 videos -->
+            Your browser does not support HTML5 video.
+
             </video>
-            
+            <?php echo $video; ?>
             <!-- Logout button -->
             <a href="profile.php"><button class="button button-block" name="profile"/>Return to Profile</button></a>
         </div>

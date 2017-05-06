@@ -20,8 +20,8 @@
         
         // Upload button is pressed
         if(isset($_POST['upload'])) {
-            $target = "avatars/".basename($_FILES['image']['name']);
-            
+            //$target = "avatars/". basename($_FILES['image']['name']);
+            $target2 = "avatars/".$username.'/'.basename($_FILES['image']['name']);
             $db = mysqli_connect("localhost", "root", "", "accounts");
             
             // Get data
@@ -30,7 +30,8 @@
             $sql2 = "UPDATE users SET avatar = '".$_FILES['image']['name']."' WHERE username = '".$_SESSION['username']."'";
             mysqli_query($db, $sql2);
             
-            if(move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+            // Move the file
+            if(move_uploaded_file($_FILES['image']['tmp_name'], $target2)) {
                 $msg = "Image uploaded successfully";
             }
             else{
@@ -88,12 +89,26 @@
                     <!-- Avatar section of the user -->
                     <div class="avatar">
                         <?php
+                            //Connect to database
                             $db = mysqli_connect("localhost", "root", "", "accounts");
-                            $sql = "SELECT * FROM users";
-                            $result = mysqli_query($db, $sql);
+                            $sql = "SELECT * FROM users WHERE username='$username'"; // Make sure to select the appropriate user from the database
+                            $result = mysqli_query($db, $sql); // Query to database.
+                            
                             while($row = mysqli_fetch_array($result)) {
                                 echo "<div id='img_div'>";
-                                    echo "<img src='avatars/".$row['avatar']."' height='150' width='200'>";
+                                $location = "avatars/" . $username . "/";
+                                
+                                //Create directory if it doesn't exist for that user
+                                if(!file_exists($location))
+                                {
+                                    mkdir("avatars/". $username, 0777, true);
+                                    echo "<img src='avatars/".$username.'/'.$row['avatar']."' height='150' width='200'>";
+                                }
+                                else // Just diplay to user 
+                                {
+                                    echo "<img src='avatars/".$username.'/'.$row['avatar']."' height='150' width='200'>";
+                                }
+
                                 echo "</div>";
                             }
                         ?>
@@ -102,9 +117,7 @@
                             <div class="fileinputs">
                                 <input type="file" name="image">
 
-
                                 <input type="submit" name="upload" value="Upload Image">
-
 
                             </div>
 
@@ -139,7 +152,7 @@
                         <div id="allvideos">
                             <?php
                                 $db = mysqli_connect("localhost", "root", "", "accounts");
-                                $sql = "SELECT videoID, videoName, videoURL FROM videos";
+                                $sql = "SELECT videoID, videoName, videoURL FROM videos WHERE username='$username'";
                                 $result = mysqli_query($db, $sql);
                                 while($row = mysqli_fetch_array($result)) {
                                     
@@ -150,7 +163,6 @@
                                     echo "<a href='watch.php?video=$videoURL'>$videoName<br/>";
                                 }
                             ?>
-                            
                             
                         </div>
                         <div id="uploadtab">
