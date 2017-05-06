@@ -2,7 +2,7 @@
 session_start();
 $allowedExts = array("mp3", "mp4", "wma", "avi");
 $extension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
-
+$db = mysqli_connect("localhost", "root", "", "accounts");
 # Allowable extensions
 if ((($_FILES["file"]["type"] == "video/mp4")
      || ($_FILES["file"]["type"] == "video/mpeg")
@@ -34,7 +34,6 @@ if ((($_FILES["file"]["type"] == "video/mp4")
 else
   {
     $invalidFile = true;
-    echo "Invalid file";
   }
 ?>
 
@@ -67,7 +66,6 @@ else
                                 $type = explode('.', $videoname);
                                 $type = end($type);
                                 $random_name = rand();
-                                $db = mysqli_connect("localhost", "root", "", "accounts");
                                 
                                 // Display the video details to the user
                                 echo "Upload: " . $_FILES["file"]["name"] . "<br />";
@@ -78,7 +76,9 @@ else
                                 // Move file to local folder and query to database
                                 move_uploaded_file($_FILES["file"]["tmp_name"], "videos/" . $_FILES["file"]["name"]);
                                 $uploadToDatabase = "INSERT INTO videos (username, videoName, videoURL) VALUES ('$username', '$videoname', 'videos/$random_name.$type')";
-                                mysqli_query($db, $uploadToDatabase);
+                                #mysqli_query($db, $uploadToDatabase);
+                                $db->query($uploadToDatabase);
+                               
                                     
                                 echo "Stored in: " . "videos/" . $_FILES["file"]["name"];
                             }

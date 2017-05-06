@@ -34,15 +34,13 @@
             poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
             <source src='videos/<?php echo $video; ?>' type='video/mp4'>
             </video>
-
-            <script src="http://vjs.zencdn.net/5.19.2/video.js"></script>
+            
             <!-- Logout button -->
             <a href="profile.php"><button class="button button-block" name="profile"/>Return to Profile</button></a>
         </div>
         
-            
-        
         <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src="http://vjs.zencdn.net/5.19.2/video.js"></script>
         <script src="js/index.js"></script>
     </body>
     
