@@ -62,7 +62,6 @@
                 if(isset($_SESSION['message']))
                 {
                     echo $_SESSION['message'];
-                    
                     // Don't display the same message upon page refresh
                     unset($_SESSION['message']);
                 }
@@ -80,11 +79,13 @@
                 }
             ?>
             
+            <!-- The user information panel that contains the first name, last name, and email address of the user -->
             <div class="user">
                 <div class="headerpanel">
                     <h2 id="infopanel"><u>User Information</u></h2>
                 </div>
                 <div class="userpanel">
+                    <!-- Avatar section of the user -->
                     <div class="avatar">
                         <?php
                             $db = mysqli_connect("localhost", "root", "", "accounts");
@@ -127,6 +128,7 @@
                 </div>
             </div>
             
+            <!-- The video panel that contains all the videos of the user -->
             <div class="video">
                 <div class="videosheaderpanel">
                     <h2 id="videosheader"><u>My Videos</u></h2>
@@ -135,7 +137,21 @@
                 <div id="my_videos">
                     <div id="uploadvideo">
                         <div id="allvideos">
-                              This is a test
+                            <?php
+                                $db = mysqli_connect("localhost", "root", "", "accounts");
+                                $sql = "SELECT videoID, videoName, videoURL FROM videos";
+                                $result = mysqli_query($db, $sql);
+                                while($row = mysqli_fetch_array($result)) {
+                                    
+                                    $videoID = $row['videoID'];
+                                    $videoName = $row['videoName'];
+                                    $videoURL = $row['videoURL'];
+                                  
+                                    echo "<a href='watch.php?video=$videoURL'>$videoName<br/>";
+                                }
+                            ?>
+                            
+                            
                         </div>
                         <div id="uploadtab">
                             <div id="fileuploadinfo">
@@ -160,6 +176,7 @@
             <div class="clear">
             </div>
             
+            <!-- Logout button -->
             <a href="logout.php"><button class="button button-block" name="logout"/>Log Out</button></a>
         
         </div>

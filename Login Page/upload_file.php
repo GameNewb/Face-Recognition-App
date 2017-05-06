@@ -20,7 +20,7 @@ if ((($_FILES["file"]["type"] == "video/mp4")
         }
         else
         {
-            $fileExists = file_exists("upload/" . $_FILES["file"]["name"]);
+            $fileExists = file_exists("videos/" . $_FILES["file"]["name"]);
             if($fileExists)
             {
                 $uploadSuccessful = false;
@@ -64,6 +64,9 @@ else
                             {
                                 $username = $_SESSION['username'];
                                 $videoname = $_FILES['file']['name'];
+                                $type = explode('.', $videoname);
+                                $type = end($type);
+                                $random_name = rand();
                                 $db = mysqli_connect("localhost", "root", "", "accounts");
                                 
                                 // Display the video details to the user
@@ -73,11 +76,11 @@ else
                                 echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br />";
                                 
                                 // Move file to local folder and query to database
-                                move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $_FILES["file"]["name"]);
-                                $uploadToDatabase = "INSERT INTO videos (username) VALUES ('$username')";
+                                move_uploaded_file($_FILES["file"]["tmp_name"], "videos/" . $_FILES["file"]["name"]);
+                                $uploadToDatabase = "INSERT INTO videos (username, videoName, videoURL) VALUES ('$username', '$videoname', 'videos/$random_name.$type')";
                                 mysqli_query($db, $uploadToDatabase);
                                     
-                                echo "Stored in: " . "upload/" . $_FILES["file"]["name"];
+                                echo "Stored in: " . "videos/" . $_FILES["file"]["name"];
                             }
                             elseif($fileExists) // If file exists, return error message
                             {
