@@ -57,6 +57,8 @@ a:hover {
     margin-bottom: 30px;
 }
 
+/* ----------------------------------------------------------------------------------------------- */
+
 /* USER PROFILE CSS */
 .profile {
     background: rgba(19, 35, 47, 0.9); 
@@ -96,7 +98,10 @@ a:hover {
     clear:both;
 }
 
+/* ----------------------------------------------------------------------------------------------- */
+
 /* PROFILE SECTION */
+
 .headerpanel {
     width: 430px;
     max-width: 430px;
@@ -141,7 +146,6 @@ a:hover {
     height: 215px;
     margin: 0px 10px 0px 0px;
     max-height: 400px;
-    border: 1px dashed rgba(26, 177, 136, .8);
 }
 
 .button2 {
@@ -188,27 +192,93 @@ a:hover {
     border: 1px solid rgba(26, 177, 136, .7);
 }
 
+#uploadtab {
+    width: 845px;
+    height: 43px;
+    padding: 4px;
+    margin: 1px;
+}
+
+#file-extension-desc {
+    text-align: left;
+    color: #1ab188;
+    padding:2px 15px;  
+    border:0 none;
+    -webkit-border-radius: 5px;
+    border-radius: 4px; 
+    background: #235145;
+    border-style: outset;
+    border-color: #0f231e;
+    font: bold 15px arial, sans-serif;
+    text-shadow:none;
+}
+
 /* END USER PROFILE CSS */
 
 /* ----------------------------------------------------------------------------------------------- */
 
-/* SUBMIT BUTTON CSS */
-#fileupload{
-    float: left;
+/* VIDEO SECTION - SUBMIT BUTTON CSS */
+#fileuploadinfo {
+    position: absolute;
+    float:left;
     height: 40px;
-    width: 300px;
-    padding: 5px;
-    margin: auto;
+    width: 370px;
+}
+
+#fileupload{
+    position: absolute;
+    float: center;
+    height: 40px;
+    width: 245px;
+    padding: 3px;
+    margin-left: 395px;
+    margin-top: 0px;
 }
 
 #submitupload{
+    position: absolute;
+    float: right;
     height: 40px;
     width: 200px;
-    margin: auto;
-    margin-right: 8px;
-    padding: 5px;
-    float: right;
-   
+    padding: 3px;
+    margin-left: 640px;
+}
+
+.uploadsection {
+    background: rgba(19, 35, 47, 0.9); 
+    text-align: center;
+    padding: 20px; /*30px*/
+    max-width: 500px;
+    margin: 0px auto;
+    margin-top: 130px; /*150px center*/
+    border-radius: 6px;
+    box-shadow: 0 4px 10px 4px rgba(25, 35, 47, 0.5);
+}
+
+.upload_info {
+    padding: 5px 5px 0px 5px; /*TOP RIGHT DOWN LEFT */
+    width: 460px;
+    height: 200px;
+    /*max-width: 600px;*/
+    border: 1px solid rgba(26, 177, 136, .2);
+    box-shadow: 0 4px 10px 4px rgba(25, 35, 47, 0.2);
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+#upload_header {
+    text-align: center;
+    margin: 4px;
+    padding: 3px;
+}
+
+#upload_text {
+    text-align: center;
+    color: #468ec9;
+    margin: 5px;
+    padding: 3px;
+    font-weight: 800;
+    font-size: 16px;
 }
 
 input[type=file] {
@@ -237,6 +307,11 @@ input[type=submit] {
     font: bold 15px arial, sans-serif;
     text-shadow:none;
 }
+
+
+/* END VIDEO UPLOAD CSS */
+
+/* ----------------------------------------------------------------------------------------------- */
 
 .tab-group {
   list-style: none;

@@ -57,15 +57,15 @@ if ($mysqli->query($user) === TRUE) {
 }
 
 /* creates input video metadata table */
-$input = "CREATE TABLE IF NOT EXISTS METADATA (
-username CHAR(16) NOT NULL PRIMARY KEY,
+$video = "CREATE TABLE IF NOT EXISTS videos (
+username VARCHAR(25) NOT NULL PRIMARY KEY,
 videoID BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE,
 nframes INTEGER NOT NULL,
 Xwidth INTEGER NOT NULL,
 Yheight INTEGER NOT NULL,
 fps REAL NOT NULL)";
 
-if ($mysqli->query($input) === TRUE) {
+if ($mysqli->query($video) === TRUE) {
 	//echo "Table METADATA created successfully\n";
 } else {
 	echo "Error: \n" . $mysqli->error;

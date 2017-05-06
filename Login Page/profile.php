@@ -137,26 +137,30 @@
                         <div id="allvideos">
                               This is a test
                         </div>
-                        <div id="fileupload">
-                            <form action="upload_file.php" method="post" enctype="multipart/form-data">
-                            <input type="file" name="file" id="file" /> 
-                        
-                        </div>
-                        <div id="submitupload">
-                            <input type="submit" name="upload" value="Upload Video"/>
-                            </form>
-                        </div>
-                     
+                        <div id="uploadtab">
+                            <div id="fileuploadinfo">
+                                <p id="file-extension-desc">File Extensions Accepted: 
+                                    <br>mp4, mpeg, mpg, flv, mov, avi</p>
+                            </div>
+                            <div id="fileupload">
+                                <form action="upload_file.php" method="post" enctype="multipart/form-data">
+                                <input type="file" name="file" id="file" /> 
+
+                            </div>
+                            <div id="submitupload">
+                                <input type="submit" name="upload" value="Upload Video"/>
+                                </form>
+                            </div>
+                        </div> <!-- End div for upload tab -->
                     </div>
-                    <div class="clear"></div>
+                    <div class="clear"></div> <!-- Clear the float styles -->
                 </div>
             </div>
             
             <div class="clear">
             </div>
             
-            
-            <a href="logout.php"><button class="button button-block" name="logout"/>Log Out</butto></a>
+            <a href="logout.php"><button class="button button-block" name="logout"/>Log Out</button></a>
         
         </div>
         <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>

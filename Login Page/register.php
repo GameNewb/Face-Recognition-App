@@ -62,7 +62,7 @@
                 
                 Please click the validation link below to activate your account:
                 
-                http://localhost/Login%20Page/verify.php?email='.$email.'&hash='.$hash; 
+                http://localhost/Face-Recognition-App/Login%20Page/verify.php?email='.$email.'&hash='.$hash; 
             
                 mail($to, $subject, $message_body);
             
