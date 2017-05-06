@@ -86,14 +86,12 @@ else
                                     // Move file to local folder and query to database
                                     move_uploaded_file($_FILES["file"]["tmp_name"], $target);
                                     $uploadToDatabase = "INSERT INTO videos (username, videoName, videoURL) VALUES ('$username', '$videoname', 'videos/$random_name.$type')";
-                                    #mysqli_query($db, $uploadToDatabase);
                                     $db->query($uploadToDatabase);
                                 }
                                 else // Just move appropriate videos to user folder
                                 {
                                     move_uploaded_file($_FILES["file"]["tmp_name"], $target);
                                     $uploadToDatabase = "INSERT INTO videos (username, videoName, videoURL) VALUES ('$username', '$videoname', 'videos/$random_name.$type')";
-                                    #mysqli_query($db, $uploadToDatabase);
                                     $db->query($uploadToDatabase);
                                 }
                                
@@ -107,7 +105,6 @@ else
                                 echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br />";
 
                                 echo $_FILES["file"]["name"] . " already exists. ";
-
                             }
                             else
                             {

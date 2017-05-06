@@ -160,7 +160,7 @@
                                     $videoName = $row['videoName'];
                                     $videoURL = $row['videoURL'];
                                   
-                                    echo "<a href='watch.php?video=$videoURL'>$videoName<br/>";
+                                    echo "<a href='watch.php?video=$videoName'>$videoName<br/>";
                                 }
                             ?>
                             

@@ -25,22 +25,26 @@
         </div>
         
         <div id="viewVideoBox">
-            <?php
-                $db = mysqli_connect("localhost", "root", "", "accounts");
-                $video = $_GET['video'];
-                echo $video;
-            ?>
-            <video id="my-video" class="video-js" controls preload="auto" width="640" height="320"
-            poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
-            <source src="videos/<?php echo $video; ?>" type="video/mp4">
-                
-            <!-- Fallback in case the users browsers doesn't support HTML5 videos -->
-            Your browser does not support HTML5 video.
+            <div id="videoPanel">
+                <?php
+                    // Connect to the database and get the appropriate video
+                    $db = mysqli_connect("localhost", "root", "", "accounts");
+                    $video = $_GET['video'];
+                ?>
+                <!-- Set video player -->
+                <video id="my-video" class="video-js" controls preload="auto" width="640" height="320"
+                poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+                <source src="videos/<?php echo $username; echo "/"; echo $video; ?>" type="video/mp4">
 
-            </video>
-            <?php echo $video; ?>
-            <!-- Logout button -->
-            <a href="profile.php"><button class="button button-block" name="profile"/>Return to Profile</button></a>
+                <!-- Fallback in case the users browsers doesn't support HTML5 videos -->
+                Your browser does not support HTML5 video.
+
+                </video>
+            </div>
+            <div class="logout">
+                <!-- Logout button -->
+                <a href="profile.php"><button class="button button-block" name="profile"/>Return to Profile</button></a>
+            </div>
         </div>
         
         <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
