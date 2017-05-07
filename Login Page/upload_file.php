@@ -1,17 +1,18 @@
 <?php
 session_start();
 $username = $_SESSION['username'];
-$allowedExts = array("mp3", "mp4", "wma", "avi");
+$allowedExts = array("mp4", "avi", "mpeg", "mov", "flv", "wmv", "ogg");
 $extension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
 $db = mysqli_connect("localhost", "root", "", "accounts");
 
 # Allowable extensions
-if ((($_FILES["file"]["type"] == "video/mp4")
+if ((($_FILES["file"]["type"] == "video/mp4")       //mp4
      || ($_FILES["file"]["type"] == "video/mpeg")
-     || ($_FILES["file"]["type"] == "video/mpg")
-     || ($_FILES["file"]["type"] == "video/flv")
-     || ($_FILES["file"]["type"] == "video/mov")
-     || ($_FILES["file"]["type"] == "video/avi"))
+     || ($_FILES["file"]["type"] == "video/x-flv") // flv file type
+     || ($_FILES["file"]["type"] == "video/quicktime") // mov file type
+     || ($_FILES["file"]["type"] == "video/avi") // avi
+     || ($_FILES["file"]["type"] == "video/x-ms-wmv") // mwv file type
+     || ($_FILES["file"]["type"] == "video/ogg")) //ogg
     && ($_FILES["file"]["size"] < 50000000) #50mbs of video space each
     && in_array($extension, $allowedExts))
     {
@@ -36,9 +37,9 @@ if ((($_FILES["file"]["type"] == "video/mp4")
 else
   {
     $invalidFile = true;
+    echo "Invalid Format!";
   }
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -85,13 +86,13 @@ else
                                     mkdir("videos/". $username, 0777, true);
                                     // Move file to local folder and query to database
                                     move_uploaded_file($_FILES["file"]["tmp_name"], $target);
-                                    $uploadToDatabase = "INSERT INTO videos (username, videoName, videoURL) VALUES ('$username', '$videoname', 'videos/$random_name.$type')";
+                                    $uploadToDatabase = "INSERT INTO videos (username, videoName, videoURL) VALUES ('$username', '$videoname', 'videos/$username/$random_name.$type')";
                                     $db->query($uploadToDatabase);
                                 }
                                 else // Just move appropriate videos to user folder
                                 {
                                     move_uploaded_file($_FILES["file"]["tmp_name"], $target);
-                                    $uploadToDatabase = "INSERT INTO videos (username, videoName, videoURL) VALUES ('$username', '$videoname', 'videos/$random_name.$type')";
+                                    $uploadToDatabase = "INSERT INTO videos (username, videoName, videoURL) VALUES ('$username', '$videoname', 'videos/$username/$random_name.$type')";
                                     $db->query($uploadToDatabase);
                                 }
                                

@@ -159,16 +159,18 @@
                                     $videoID = $row['videoID'];
                                     $videoName = $row['videoName'];
                                     $videoURL = $row['videoURL'];
-                                  
-                                    echo "<a href='watch.php?video=$videoName'>$videoName<br/>";
+                                    
+                                    echo '<div id="vidlinks">';
+                                    echo "<a href='watch.php?video=$videoName' class='linkers'>$videoName";
+                                    echo '</br></div>';
                                 }
+                                echo '<div class="clear"></div>'; // Clear floating styles
                             ?>
-                            
                         </div>
                         <div id="uploadtab">
                             <div id="fileuploadinfo">
                                 <p id="file-extension-desc">File Extensions Accepted: 
-                                    <br>mp4, mpeg, mpg, flv, mov, avi</p>
+                                    <br>mp4, mpeg, flv, mov, avi</p>
                             </div>
                             <div id="fileupload">
                                 <form action="upload_file.php" method="post" enctype="multipart/form-data">
@@ -183,9 +185,6 @@
                     </div>
                     <div class="clear"></div> <!-- Clear the float styles -->
                 </div>
-            </div>
-            
-            <div class="clear">
             </div>
             
             <!-- Logout button -->
