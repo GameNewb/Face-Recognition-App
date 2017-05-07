@@ -30,12 +30,61 @@
                     // Connect to the database and get the appropriate video
                     $db = mysqli_connect("localhost", "root", "", "accounts");
                     $video = $_GET['video'];
+                
+                    // Select the appropriate video to obtain the video format/extension type
+                    $sql = "SELECT videoURL FROM videos WHERE username='$username' AND videoName='$video'"; 
+                    $result = mysqli_query($db, $sql);
+                
+                    // Fetch the right url and take the format of the video
+                    while($row = mysqli_fetch_array($result)) {  
+                        $videoURL = $row['videoURL'];
+                        $type = explode('.', $videoURL);
+                        $type = end($type);
+                    }
                 ?>
+                <h2><?php echo $video; ?></h2><br>
+                
                 <!-- Set video player -->
-                <video id="my-video" class="video-js" controls preload="auto" width="640" height="320"
+                <video id="my-video" class="video-js" controls preload="auto" width="750" height="380"
                 poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
-                <source src="videos/<?php echo $username; echo "/"; echo $video; ?>" type="video/mp4">
-
+                    
+                <!-- Check the video format/type and set variables accordingly-->
+                <?php 
+                    
+                    if($type == "mp4")
+                    {
+                        $format = "video/mp4";
+                    }
+                    elseif($type == "mpeg")
+                    {
+                        $format = "video/mpeg";
+                    }
+                    elseif($type == "flv")
+                    {
+                        $format = "video/x-flv";
+                    }
+                    elseif($type == "mov") 
+                    {
+                        $format = "video/quicktime";
+                    }
+                    elseif($type == "avi") // AVI format
+                    {
+                        //$format = "video/x-msvideo";
+                        $format = "video/avi";
+                    }
+                    elseif($type = "wmv") // Windows Media Video
+                    {
+                        $format = "video/x-ms-wmv";
+                    }
+                    elseif($type = "ogg")
+                    {
+                        $format = "video/ogg";
+                    }
+                    
+                    
+                ?>
+                
+                <source src="videos/<?php echo $username; echo "/"; echo $video; ?>" type="<?php echo $format; ?>">
                 <!-- Fallback in case the users browsers doesn't support HTML5 videos -->
                 Your browser does not support HTML5 video.
 
@@ -47,9 +96,7 @@
             </div>
         </div>
         
-        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
         <script src="http://vjs.zencdn.net/5.19.2/video.js"></script>
-        <script src="js/index.js"></script>
     </body>
     
 </html>
