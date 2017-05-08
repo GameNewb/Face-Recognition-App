@@ -1,0 +1,27 @@
+-- Dependencies --
+
+Composer
+FFMPEG PHP
+
+
+------------------
+
+%03d - autoincrement counter
+
+Extract every image from file:
+- ffmpeg -i "<filename here>" <folder>/<output name>%03d.jpg
+
+
+Extract to uncompressed BMP images (not all frames)
+- ffmpeg -i file.mpg -r 1/1 <filename>%03d.bmp
+
+Extract 1 frame per minute
+- time ffmpeg -i input.mp4 -filter:v fps=fps=1/60 <filename>%0d.bmp
+
+
+
+http://stackoverflow.com/questions/16112181/ffmpeg-could-not-open-file-error-message-when-processing-with-php
+
+http://stackoverflow.com/questions/10957412/fastest-way-to-extract-frames-using-ffmpeg
+
+http://stackoverflow.com/questions/41489614/composer-installation-setup-error
