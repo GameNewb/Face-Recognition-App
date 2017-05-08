@@ -31,6 +31,7 @@ if ((($_FILES["file"]["type"] == "video/mp4")       //mp4
             {
                 $uploadSuccessful = true;
             }
+            
         }
     } // End if
 else
@@ -117,14 +118,17 @@ else
                                 }
                                     
                                 $ffmpeg = "ffmpeg";
-                                $videoLoc = "videos/$username/$videoname";
+                                $rawPath = __DIR__ . "/"; // Get the root path where this app is installed
+                                $rootPath = str_replace('\\', '/', $rawPath);
+                                $videoLoc = $rootPath . "videos/$username/$videoname";
                                 $imageFile = "thumbnail%03d.jpg";
                                 $size = "120x90";
                                 $getFromSecond = 5;
                                 
                                 // Actual command line call
-                                $cmd = "$ffmpeg -i " . '"' .$videoLoc.'"' . " -vf fps=1/600 -s $size videos/$username/".'"'.$vidNameOnly[0].'"'."/$imageFile"; 
+                                $cmd = "$ffmpeg -i " . '"' .$videoLoc.'"' . " -vf fps=1/600 -s $size " .'"'."$rootPath"."videos/$username/$vidNameOnly[0]/$imageFile".'"'; 
                                 
+                                // If ffmpeg shell command exectues
                                 if(!shell_exec($cmd))
                                 {
                                     // Upload the video thumbnail to the database by updating it
