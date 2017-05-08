@@ -54,21 +54,7 @@
         </div>
         <div class="profile">
             <h1>Welcome  <?= $first_name.' '.$last_name ?></h1>
-            
-            <p>
-            <?php
-    
-                // NEEDS TO BE FIXED - DISPLAYING ERROR MESSAGE WHEN USER LOGS INCORRECTLY FOR THE FIRST TIME
-                // Display message about account verification link once
-                if(isset($_SESSION['message']))
-                {
-                    echo $_SESSION['message'];
-                    // Don't display the same message upon page refresh
-                    unset($_SESSION['message']);
-                }
-            ?>
-            </p>
-            
+
             <?php
                 // Remind user that the account is not active yet
                 if(!$active)
@@ -145,6 +131,7 @@
             <div class="video">
                 <div class="videosheaderpanel">
                     <h2 id="videosheader"><u>My Videos</u></h2>
+                    
                 </div>
                 
                 <div id="my_videos">
@@ -152,25 +139,32 @@
                         <div id="allvideos">
                             <?php
                                 $db = mysqli_connect("localhost", "root", "", "accounts");
-                                $sql = "SELECT videoID, videoName, videoURL FROM videos WHERE username='$username'";
+                                $sql = "SELECT videoID, videoName, videoURL, thumbnail FROM videos WHERE username='$username'";
                                 $result = mysqli_query($db, $sql);
                                 while($row = mysqli_fetch_array($result)) {
                                     
                                     $videoID = $row['videoID'];
                                     $videoName = $row['videoName'];
                                     $videoURL = $row['videoURL'];
+                                    $videoThumbnail = $row['thumbnail'];
+                                    $vidNameOnly = explode('.', $videoName); //Get the name of the vid only
+                                    $vidNameOnly[0] = $vidNameOnly[0] .= " Frames";
+                                    $thumbnailLocation = "videos/$username/$vidNameOnly[0]/";
                                     
                                     echo '<div id="vidlinks">';
-                                    echo "<a href='watch.php?video=$videoName' class='linkers'>$videoName";
-                                    echo '</br></div>';
+                                    echo "<a href='watch.php?video=$videoName'>
+                                    <img src='$thumbnailLocation/thumbnail001.jpg' width='120' height='90' border='1'>
+                                    $videoName</a>";
+                                    echo '</div>';
                                 }
                                 echo '<div class="clear"></div>'; // Clear floating styles
+                            
                             ?>
                         </div>
                         <div id="uploadtab">
                             <div id="fileuploadinfo">
                                 <p id="file-extension-desc">File Extensions Accepted: 
-                                    <br>mp4, mpeg, flv, mov, avi</p>
+                                    <br>mp4, flv, mov (50 mb max file size)</p>
                             </div>
                             <div id="fileupload">
                                 <form action="upload_file.php" method="post" enctype="multipart/form-data">

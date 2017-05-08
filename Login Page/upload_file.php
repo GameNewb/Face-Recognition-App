@@ -10,7 +10,6 @@ if ((($_FILES["file"]["type"] == "video/mp4")       //mp4
      || ($_FILES["file"]["type"] == "video/mpeg")
      || ($_FILES["file"]["type"] == "video/x-flv") // flv file type
      || ($_FILES["file"]["type"] == "video/quicktime") // mov file type
-     || ($_FILES["file"]["type"] == "video/avi") // avi
      || ($_FILES["file"]["type"] == "video/x-ms-wmv") // mwv file type
      || ($_FILES["file"]["type"] == "video/ogg")) //ogg
     && ($_FILES["file"]["size"] < 50000000) #50mbs of video space each
@@ -79,7 +78,7 @@ else
                                 // Target location for user folder
                                 $target = "videos/".$username.'/'.basename($_FILES['file']['name']);
                                 $location = "videos/" . $username . "/";
-                                
+                                 
                                 //Create directory if it doesn't exist for that user
                                 if(!file_exists($location))
                                 {
@@ -97,6 +96,45 @@ else
                                 }
                                
                                 echo "Stored in: " . "videos/" . $username.'/'. $_FILES["file"]["name"];
+                                
+                                // FFMPEG script to extract a thumbnail from the uploaded video
+                                
+                                /* Commands:
+                                    -i Input file name
+                                    -an Disabled audio
+                                    -ss Get image from X seconds in the video
+                                    -s Size of the image
+                                    -vf Frame counter
+                                */
+                                
+                                // Create a folder for each video thumbnail
+                                $vidNameOnly = explode('.', $videoname); //Get the name of the vid only
+                                $vidNameOnly[0] = $vidNameOnly[0] .= " Frames";
+                                $thumbnailLocation = "videos/" . $username . "/" . $vidNameOnly[0] . "/";
+                                if(!file_exists($thumbnailLocation))
+                                {
+                                    mkdir("videos/" . $username . "/" . $vidNameOnly[0], 0777, true);
+                                }
+                                    
+                                $ffmpeg = "ffmpeg";
+                                $videoLoc = "videos/$username/$videoname";
+                                $imageFile = "thumbnail%03d.jpg";
+                                $size = "120x90";
+                                $getFromSecond = 5;
+                                
+                                // Actual command line call
+                                $cmd = "$ffmpeg -i " . '"' .$videoLoc.'"' . " -vf fps=1/600 -s $size videos/$username/".'"'.$vidNameOnly[0].'"'."/$imageFile"; 
+                                
+                                if(!shell_exec($cmd))
+                                {
+                                    // Upload the video thumbnail to the database by updating it
+                                    $uploadThumbnail = "UPDATE videos SET thumbnail='thumbnail001.jpg' WHERE username='$username' AND videoName='$videoname' AND videoURL='videos/$username/$random_name.$type'";
+                                    $db->query($uploadThumbnail);
+                                }
+                                else
+                                {
+                                    echo "Error creating thumbnail";
+                                }
                             }
                             elseif($fileExists) // If file exists, return error message
                             {

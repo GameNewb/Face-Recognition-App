@@ -196,6 +196,7 @@ a:hover {
 }
 
 #allvideos {
+    overflow-y: scroll;
     width: 845px;
     height: 270px;
     padding: 4px;
@@ -349,8 +350,8 @@ input[type=submit] {
 
 #vidlinks {
     float:left;
-    max-width: 200px;
-    max-height: 30px;
+    max-width: 130px;
+    max-height: 96px;
     padding: 3px;
     margin: 2px;
     box-shadow: 0 4px 10px 4px rgba(25, 35, 47, 0.5);
@@ -419,6 +420,12 @@ h3 {
     text-align: left;
     font-weight: 600;
     color: #1ab188;
+}
+
+h4 {
+    text-align: center;
+    font-weight: 500;
+    color: #447a52;
 }
 
 span { /* For * */

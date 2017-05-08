@@ -67,11 +67,6 @@
                     {
                         $format = "video/quicktime";
                     }
-                    elseif($type == "avi") // AVI format
-                    {
-                        //$format = "video/x-msvideo";
-                        $format = "video/avi";
-                    }
                     elseif($type = "wmv") // Windows Media Video
                     {
                         $format = "video/x-ms-wmv";
