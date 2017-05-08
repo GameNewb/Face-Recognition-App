@@ -11,6 +11,17 @@ The app is currently being developed using HTML/CSS, Javascript, PHP, MySQL, and
 2. MySQL
 3. A text editor (e.g. Notepad++, SublimeText, Brackets, etc.) in case you want to make edits on the files
 4. FFMPEG
+
+Note: For ease of access, you can simply download XAMPP(Apache & MySQL) here: https://www.apachefriends.org/index.html
+
 ----------------------
 #### Additional Dependencies:
 - FFMPEG is included in this project repo. On Windows, you can simply add an environmental path to the ffmpeg folder and the dependencies will be fixed.
+- This app uses an email verification feature. As such, you will need to modify your php.ini file as well as your sendmail.ini file.
+  + On Windows XAMPP
+    - Go to XAMPP directory
+    - <Local directory here>/php/php.ini (open with text editor)
+    - <Local directory here>/sendmail/sendmail.ini (open with text editor)
+    - Further instructions can be located here: http://stackoverflow.com/questions/15965376/how-to-configure-xampp-to-send-mail-from-localhost
+  + On Linux
+    - Go to /usr/sbin and look for sendmail.ini
