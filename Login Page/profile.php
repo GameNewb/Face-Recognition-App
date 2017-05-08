@@ -152,7 +152,7 @@
                                     $thumbnailLocation = "videos/$username/$vidNameOnly[0]/";
                                     
                                     echo '<div id="vidlinks">';
-                                    echo "<a href='watch.php?video=$videoName'>
+                                    echo "<a href='watch.php?video=$videoName' class='linkers'>
                                     <img src='$thumbnailLocation/thumbnail001.jpg' width='120' height='90' border='1'>
                                     $videoName</a>";
                                     echo '</div>';

@@ -348,7 +348,7 @@ input[type=submit] {
     box-shadow: 0 4px 10px 4px rgba(25, 35, 47, 0.5);
 }
 
-#vidlinks {
+.linkers {
     float:left;
     max-width: 130px;
     max-height: 96px;
@@ -356,6 +356,11 @@ input[type=submit] {
     margin: 2px;
     box-shadow: 0 4px 10px 4px rgba(25, 35, 47, 0.5);
     background: #235145;
+}
+
+#vidlinks {
+    float: left;
+    height: 150px;
 }
 
 /* ----------------------------------------------------------------------------------------------- */
