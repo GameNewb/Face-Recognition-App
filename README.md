@@ -1,6 +1,6 @@
 # User Login and Face Recognition App
 ---------------------
-This is a basic app that allows user to register and login to their appropriate profile. Once a user is logged in, users are able to upload videos through their local files and database.
+This is a basic web app that allows users to register and login to their appropriate profile. Once a user is logged in, users are able to upload videos through their localhost and onto the database.
 
 The app is currently being developed using HTML/CSS, Javascript, PHP, MySQL, and Apache server on a Windows and Linux machine. Also, the app is dependent on the FFMPEG library as some functionalities require it.
 
