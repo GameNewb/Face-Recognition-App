@@ -17,11 +17,14 @@ Note: For ease of access, you can simply download XAMPP(Apache & MySQL) here: ht
 ----------------------
 #### Additional Dependencies:
 - FFMPEG is included in this project repo. On Windows, you can simply add an environmental path to the ffmpeg folder and the dependencies will be fixed.
-- This app uses an email verification feature. As such, you will need to modify your php.ini file as well as your sendmail.ini file.
+- This app uses an email verification feature. As such, you will need to modify your php.ini file as well as your sendmail.ini file (after installing XAMPP).
   + On Windows XAMPP
     - Go to XAMPP directory
-    - <Local directory here>/php/php.ini (open with text editor)
-    - <Local directory here>/sendmail/sendmail.ini (open with text editor)
+    - XAMPP/php/php.ini (open with text editor)
+    - XAMPP/sendmail/sendmail.ini (open with text editor)
     - Further instructions can be located here: http://stackoverflow.com/questions/15965376/how-to-configure-xampp-to-send-mail-from-localhost
   + On Linux
-    - Go to /usr/sbin and look for sendmail.ini
+    - Install sendmail, mailutils, and ssmtp and configure the e-mail to use
+    - Go to opt/lammp/etc and edit php.ini
+      + Uncomment/remove ; from "extension=php_openssl.dll"
+      + Set sendmail_path = "path/to/sendmail/ -t -i"
