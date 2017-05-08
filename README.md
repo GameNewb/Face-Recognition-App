@@ -7,16 +7,17 @@ The app is currently being developed using HTML/CSS, Javascript, PHP, MySQL, and
 ---------------------
 #### To run the program you must have the following installed on your system:
 
-1. Apache server
-2. MySQL
+1. Apache server **
+2. MySQL **
 3. A text editor (e.g. Notepad++, SublimeText, Brackets, etc.) in case you want to make edits on the files
 4. FFMPEG
 
+** : Must be running as an administrator
 Note: For ease of access, you can simply download XAMPP(Apache & MySQL) here: https://www.apachefriends.org/index.html
 
 ----------------------
 #### Additional Dependencies:
-- FFMPEG is included in this project repo. On Windows, you can simply add an environmental path to the ffmpeg folder and the dependencies will be fixed.
+- FFMPEG is required for this project to run properly. On Windows, you can simply add an environmental path to the ffmpeg folder and the dependencies will be fixed. On Linux, you must get the appropriate ffmpeg libraries and install it.
 - This app uses an email verification feature. As such, you will need to modify your php.ini file as well as your sendmail.ini file (after installing XAMPP).
   + On Windows XAMPP
     - Go to XAMPP directory
