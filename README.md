@@ -13,7 +13,10 @@ The app is currently being developed using HTML/CSS, Javascript, PHP, MySQL, and
 4. FFMPEG
 
 ** : Must be running as an administrator
-Note: For ease of access, you can simply download XAMPP(Apache & MySQL) here: https://www.apachefriends.org/index.html
+
+Note: 
+- For ease of access, you can simply download XAMPP(Apache & MySQL) here: https://www.apachefriends.org/index.html
+- For ffmpeg, download it here: https://ffmpeg.org/download.html
 
 ----------------------
 #### Additional Dependencies:
