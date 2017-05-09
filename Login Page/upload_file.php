@@ -83,7 +83,9 @@ else
                                 //Create directory if it doesn't exist for that user
                                 if(!file_exists($location))
                                 {
+                                    $oldmask = umask(0);
                                     mkdir("videos/". $username, 0777, true);
+                                    umask($oldmask);
                                     // Move file to local folder and query to database
                                     move_uploaded_file($_FILES["file"]["tmp_name"], $target);
                                     $uploadToDatabase = "INSERT INTO videos (username, videoName, videoURL) VALUES ('$username', '$videoname', 'videos/$username/$random_name.$type')";
@@ -114,7 +116,9 @@ else
                                 $thumbnailLocation = "videos/" . $username . "/" . $vidNameOnly[0] . "/";
                                 if(!file_exists($thumbnailLocation))
                                 {
+                                    $oldmask = umask(0);
                                     mkdir("videos/" . $username . "/" . $vidNameOnly[0], 0777, true);
+                                    umask($oldmask);
                                 }
                                     
                                 $ffmpeg = "ffmpeg";
