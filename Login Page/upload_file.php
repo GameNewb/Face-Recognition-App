@@ -83,21 +83,32 @@ else
                                 //Create directory if it doesn't exist for that user
                                 if(!file_exists($location))
                                 {
-                                    $oldmask = umask(0);
-                                    mkdir("videos/". $username, 0777, true);
-                                    umask($oldmask);
+                                    $dir = "videos/". $username;
+                                    
+                                    // For linux - create directory
+                                    if (!is_dir($dir)) {
+                                        // Create mask to allow program to create a directory
+                                        $oldmask = umask(0);
+                                        mkdir($dir, 0777, true);
+                                        umask($oldmask);
+                                    }
+                                   
                                     // Move file to local folder and query to database
                                     move_uploaded_file($_FILES["file"]["tmp_name"], $target);
+                                    chmod($target, 0777);
+                                    
                                     $uploadToDatabase = "INSERT INTO videos (username, videoName, videoURL) VALUES ('$username', '$videoname', 'videos/$username/$random_name.$type')";
                                     $db->query($uploadToDatabase);
                                 }
                                 else // Just move appropriate videos to user folder
                                 {
                                     move_uploaded_file($_FILES["file"]["tmp_name"], $target);
+                                    chmod($target, 0777);
+                                    
                                     $uploadToDatabase = "INSERT INTO videos (username, videoName, videoURL) VALUES ('$username', '$videoname', 'videos/$username/$random_name.$type')";
                                     $db->query($uploadToDatabase);
                                 }
-                               
+                                
                                 echo "Stored in: " . "videos/" . $username.'/'. $_FILES["file"]["name"];
                                 
                                 // FFMPEG script to extract a thumbnail from the uploaded video
@@ -116,9 +127,15 @@ else
                                 $thumbnailLocation = "videos/" . $username . "/" . $vidNameOnly[0] . "/";
                                 if(!file_exists($thumbnailLocation))
                                 {
-                                    $oldmask = umask(0);
-                                    mkdir("videos/" . $username . "/" . $vidNameOnly[0], 0777, true);
-                                    umask($oldmask);
+                                    $thumbnaildir = "videos/". $username . "/" . $vidNameOnly[0];
+                                    
+                                    // For linux - create directory
+                                    if (!is_dir($thumbnaildir)) {
+                                        // Create mask to allow program to create a directory
+                                        $oldmask = umask(0);
+                                        mkdir($thumbnaildir, 0777, true);
+                                        umask($oldmask);
+                                    }
                                 }
                                     
                                 $ffmpeg = "ffmpeg";
@@ -135,6 +152,7 @@ else
                                 // If ffmpeg shell command exectues
                                 if(!shell_exec($cmd))
                                 {
+                                    echo $cmd;
                                     // Upload the video thumbnail to the database by updating it
                                     $uploadThumbnail = "UPDATE videos SET thumbnail='thumbnail001.jpg' WHERE username='$username' AND videoName='$videoname' AND videoURL='videos/$username/$random_name.$type'";
                                     $db->query($uploadThumbnail);

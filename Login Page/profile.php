@@ -87,10 +87,16 @@
                                 //Create directory if it doesn't exist for that user
                                 if(!file_exists($location))
                                 {
-                                    // Create mask to allow program to create a directory
-                                    $oldmask = umask(0);
-                                    mkdir("avatars/". $username, 0777, true);
-                                    umask($oldmask);
+                                    $dir = "avatars/". $username;
+                                    
+                                    // For linux - create directory
+                                    if (!is_dir($dir)) {
+                                        // Create mask to allow program to create a directory
+                                        $oldmask = umask(0);
+                                        mkdir($dir, 0777, true);
+                                        umask($oldmask);
+                                    }
+                                    
                                     echo "<img src='avatars/".$username.'/'.$row['avatar']."' height='150' width='200'>";
                                 }
                                 else // Just diplay to user 
