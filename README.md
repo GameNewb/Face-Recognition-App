@@ -32,3 +32,9 @@ Note:
     - Go to opt/lammp/etc and edit php.ini
       + Uncomment/remove ; from "extension=php_openssl.dll"
       + Set sendmail_path = "path/to/sendmail/ -t -i"
+      + Further instructions can be located here: https://askubuntu.com/questions/47609/how-to-have-my-php-send-mail
+- The entire repository folder permission must be changed to 0777, specially for "avatars" and "videos" folder
+- If FFFMPEG is not being executed, then chances are the library dependencies cannot be located by the program. One issue encountered was that libstdc++ couldn't be located.
+  + The solution to this is to copy libstdc++ from the /usr/lib directory onto the /opt/lampp/lib/ directory
+- Apache might also encounter some issues obtaining or creating some files. In order to fix this, permission must be changed for the entirety of the project folder.
+  + Further instructions can be located here: http://stackoverflow.com/questions/5246114/php-mkdir-permission-denied-problem
