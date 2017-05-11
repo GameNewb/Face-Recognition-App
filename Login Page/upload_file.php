@@ -146,21 +146,31 @@ else
                                 $size = "120x90";
                                 $getFromSecond = 5;
                                 
-                                // Actual command line call
-                                $cmd = "$ffmpeg -i " . '"' .$videoLoc.'"' . " -vf fps=1/600 -s $size " .'"'."$rootPath"."videos/$username/$vidNameOnly[0]/$imageFile".'"'; 
+                                 // Actual command line call
+                                $cmd = "$ffmpeg -ss 00:00:05 -i " . '"' .$videoLoc.'"' . " -frames:v 1 -s $size " .'"'."$rootPath"."videos/$username/$vidNameOnly[0]/$imageFile".'" 2>&1'; 
                                 
                                 // If ffmpeg shell command exectues
-                                if(!shell_exec($cmd))
+                                if(shell_exec($cmd))
                                 {
-                                    echo $cmd;
                                     // Upload the video thumbnail to the database by updating it
                                     $uploadThumbnail = "UPDATE videos SET thumbnail='thumbnail001.jpg' WHERE username='$username' AND videoName='$videoname' AND videoURL='videos/$username/$random_name.$type'";
                                     $db->query($uploadThumbnail);
+                                   
                                 }
                                 else
                                 {
                                     echo "Error creating thumbnail";
                                 }
+                                
+                                // Get still images from video using python script
+                                $scriptLocation = realpath(__DIR__ . '/../exec/' . "frame_split.py");
+                                $pathToVid = __DIR__ . '/videos/' . $username ."/";
+                                $saveLocation = __DIR__ . '/videos/' . $username . "/". $vidNameOnly[0] . "/";
+                                $script = "python " . $scriptLocation . " " . '"'.$videoname.'"'. " " . '"'.$pathToVid.'"' . " " . '"'.$saveLocation.'"';
+                                #$stillScript = exec("python $scriptLocation $videoname $pathToVid $saveLocation");
+                                $stillScript = exec($script);
+                                echo $script;
+                                
                             }
                             elseif($fileExists) // If file exists, return error message
                             {

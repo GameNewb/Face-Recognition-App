@@ -99,7 +99,7 @@
                                     
                                     echo "<img src='avatars/".$username.'/'.$row['avatar']."' height='150' width='200'>";
                                 }
-                                else // Just diplay to user 
+                                else // Just diplay to user mo
                                 {
                                     echo "<img src='avatars/".$username.'/'.$row['avatar']."' height='150' width='200'>";
                                 }
@@ -120,6 +120,7 @@
                     </div>
                     <p id="info">
                         <?php 
+                        
                         $strfirst = ucwords($first_name);
                         $strlast = ucwords($last_name); 
                         echo nl2br("<u>First Name:</u> $strfirst 
