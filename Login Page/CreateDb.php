@@ -75,7 +75,7 @@ if ($mysqli->query($video) === TRUE) {
 }
 
 /* creates Head(skull) position data */
-$head = "CREATE TABLE IF NOT EXISTS HEAD (
+$head = "CREATE TABLE IF NOT EXISTS head (
 videoID INTEGER NOT NULL PRIMARY KEY,
 frameID BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE,
 yaw REAL,
@@ -90,7 +90,7 @@ if ($mysqli->query($head) === TRUE) {
 
 /* creates pupil data table */
 /* removed columns for pupils detected using OpenFace --->> OFLeye POINT, OFReye POINT Saira */
-$pupil = "CREATE TABLE IF NOT EXISTS PUPIL (
+$pupil = "CREATE TABLE IF NOT EXISTS pupil (
 videoID INTEGER NOT NULL PRIMARY KEY,
 frameID INTEGER NOT NULL, 
 FTLeye POINT,
@@ -104,7 +104,7 @@ if ($mysqli->query($pupil) === TRUE) {
 
 /* creates OpenFace data */
 /* edited the OFdata# columns from POINT NOT NULL to POINT --->> Saira */
-$openface = "CREATE TABLE IF NOT EXISTS OPENFACE (
+$openface = "CREATE TABLE IF NOT EXISTS openface (
 videoID INTEGER NOT NULL PRIMARY KEY,
 frameID INTEGER NOT NULL,
 OFdata1 POINT,
