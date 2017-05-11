@@ -110,7 +110,7 @@ foreach($imagefiles as $image) {
 	$frame_name = explode(".", $frame[9]);
 	$frameID = $frame_name[0];
 	// calls the modified pupil tracking of Mr. Hume
-	exec("/opt/lampp/htdocs/Face-Recognition-App/eyeLike-master/build/bin/eyeLike $image", $output); 
+	exec("/opt/lampp/htdocs/Face-Recognition-App/modified_eyeLike/build/bin/eyeLike $image", $output); 
     $rightPupil = $output[0];
     $leftPupil = $output[1];
 
