@@ -162,15 +162,18 @@ else
                                     echo "Error creating thumbnail";
                                 }
                                 
+                                // TODO ADD A CHECK IF CHECKBOX IS CLICKED
                                 // Get still images from video using python script
                                 $scriptLocation = realpath(__DIR__ . '/../exec/' . "frame_split.py");
                                 $pathToVid = __DIR__ . '/videos/' . $username ."/";
                                 $saveLocation = __DIR__ . '/videos/' . $username . "/". $vidNameOnly[0] . "/";
-                                $script = "python " . $scriptLocation . " " . '"'.$videoname.'"'. " " . '"'.$pathToVid.'"' . " " . '"'.$saveLocation.'"';
-                                #$stillScript = exec("python $scriptLocation $videoname $pathToVid $saveLocation");
-                                $stillScript = exec($script);
-                                echo $script;
+                                $script = "/usr/bin/python " . $scriptLocation . " " . '"'.$videoname.'"'. " " . '"'.$pathToVid.'"' . " " . '"'.$saveLocation.'"';
                                 
+                                // Allow files to be writable instead of just readable
+                                $oldmask = umask(0);
+                                $stillScript = exec($script);
+                                umask($oldmask);
+    
                             }
                             elseif($fileExists) // If file exists, return error message
                             {
