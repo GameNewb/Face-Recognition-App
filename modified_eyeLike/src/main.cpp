@@ -20,7 +20,7 @@ void detectAndDisplay( cv::Mat frame );
 
 /** Global variables x*/
 //-- Note, either copy these two files from opencv/data/haarscascades to your current folder, or change these locations
-cv::String face_cascade_name = "/home/saira/Downloads/eyeLike-master/res/haarcascade_frontalface_alt.xml";
+cv::String face_cascade_name = "/opt/lampp/htdocs/Face-Recognition-App/modified_eyeLike/res/haarcascade_frontalface_alt.xml";
 cv::CascadeClassifier face_cascade;
 std::string main_window_name = "Capture - Face detection"; //video feed
 std::string face_window_name = "Capture - Face"; // detected face
