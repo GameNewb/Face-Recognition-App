@@ -174,7 +174,7 @@
                         <div id="uploadtab">
                             <div id="fileuploadinfo">
                                 <p id="file-extension-desc">File Extensions Accepted: 
-                                    <br>mp4, flv, mov (50 mb max file size)</p>
+                                    <br>mp4, flv (50 mb max file size)</p>
                             </div>
                             <div id="fileupload">
                                 <form action="upload_file.php" method="post" enctype="multipart/form-data">

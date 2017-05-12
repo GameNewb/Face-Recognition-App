@@ -80,6 +80,7 @@ else
                                 $target = "videos/".$username.'/'.basename($_FILES['file']['name']);
                                 $location = "videos/" . $username . "/";
                                  
+                                /* CODE TO INSERT VIDEOS INTO DATABASE AND UPLOAD TO LOCAL FOLDER */
                                 //Create directory if it doesn't exist for that user
                                 if(!file_exists($location))
                                 {
@@ -108,6 +109,43 @@ else
                                     $uploadToDatabase = "INSERT INTO videos (username, videoName, videoURL) VALUES ('$username', '$videoname', 'videos/$username/$random_name.$type')";
                                     $db->query($uploadToDatabase);
                                 }
+                                
+                                // Get the ID of the video
+                                $getID = "SELECT videoID FROM videos WHERE username='$username' AND videoName='$videoname'";
+                                $resultID = mysqli_query($db, $getID);
+                                while($row = mysqli_fetch_array($resultID)) {
+                                    
+                                    $videoID = $row['videoID'];
+                                }
+                                
+                                
+                                /* EXTRACT METADATA FROM VIDEO */
+                                $targetPath = __DIR__ . "/" . $target;
+                                
+                                 /* EXTRACT NUMBER OF FRAMES */
+                                $numberOfFrames = "ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames -of default=nokey=1:noprint_wrappers=1 " . '"'.$targetPath.'"';
+                                $nframes = shell_exec($numberOfFrames);
+
+                                /* EXTRACT FPS */
+                                $fps = "ffprobe -v error -select_streams v -of default=noprint_wrappers=1:nokey=1 -show_entries stream=r_frame_rate " . '"'.$targetPath.'"';
+                                
+                                $scriptOutput = explode('/', shell_exec($fps)); //Get the actual number (e.g. r)
+                                $totalCount = (int)$scriptOutput[0]; //Get the first part of the output
+                                $averageCount = (int)$scriptOutput[1]; //Get the second part
+                                $realFPS = round(($totalCount / (float) $averageCount), 2); //Get the real fps by dividing the ffprobe output
+                                
+                                /* EXTRACT HEIGHT */
+                                $height = "ffprobe -v error -select_streams v -of default=noprint_wrappers=1:nokey=1 -show_entries stream=height " . '"'.$targetPath.'"';
+                                $Yheight = shell_exec($height);
+                                
+                                /* EXTRACT WIDTH */
+                                $width = "ffprobe -v error -select_streams v -of default=noprint_wrappers=1:nokey=1 -show_entries stream=width " . '"'.$targetPath.'"';
+                                $Xwidth = shell_exec($width);
+                                
+                                // Update the metadata
+                                $updateMetadata = "UPDATE videos SET nframes='$nframes', fps='$realFPS', Xwidth='$Xwidth', Yheight='$Yheight' WHERE username='$username' AND videoID='$videoID'";
+                                $db->query($updateMetadata);
+                                
                                 
                                 echo "Stored in: " . "videos/" . $username.'/'. $_FILES["file"]["name"];
                                 
@@ -146,7 +184,7 @@ else
                                 $size = "120x90";
                                 $getFromSecond = 5;
                                 
-                                 // Actual command line call
+                                // Actual command line call
                                 $cmd = "$ffmpeg -ss 00:00:05 -i " . '"' .$videoLoc.'"' . " -frames:v 1 -s $size " .'"'."$rootPath"."videos/$username/$vidNameOnly[0]/$imageFile".'" 2>&1'; 
                                 
                                 // If ffmpeg shell command exectues
@@ -167,7 +205,12 @@ else
                                 $scriptLocation = realpath(__DIR__ . '/../exec/' . "frame_split.py");
                                 $pathToVid = __DIR__ . '/videos/' . $username ."/";
                                 $saveLocation = __DIR__ . '/videos/' . $username . "/". $vidNameOnly[0] . "/";
-                                $script = "/usr/bin/python " . $scriptLocation . " " . '"'.$videoname.'"'. " " . '"'.$pathToVid.'"' . " " . '"'.$saveLocation.'"';
+                                $script = "/usr/bin/python " //call python
+                                    . $scriptLocation . " " //arg[0]
+                                    . '"'.$videoname.'"'. " " //arg[1]
+                                    . '"'.$videoID.'"'. " " //arg[2]
+                                    . '"'.$pathToVid.'"' . " " //arg[3]
+                                    . '"'.$saveLocation.'"'; //arg[4]
                                 
                                 // Allow files to be writable instead of just readable
                                 $oldmask = umask(0);
