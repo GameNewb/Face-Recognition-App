@@ -3,7 +3,7 @@
 import subprocess
 import sys
 
-path_to_vid = "test.avi"
+path_to_vid = "videos/test.avi"
 
 
 def find_res(path_to_vid):

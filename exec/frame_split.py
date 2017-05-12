@@ -7,13 +7,15 @@ import subprocess
 import sys
 import os
 import extract_metadata
+#"-f", "image2"
 
-vidid = sys.argv[1]
-path_to_vid = sys.argv[2]
-vid_save_location = sys.argv[3]
+vidname = sys.argv[1]
+vidid = sys.argv[2]
+path_to_vid = sys.argv[3]
+vid_save_location = sys.argv[4]
 
 def extract_stills():
-    cmd_split = ["ffmpeg", "-i", path_to_vid + vidid, "-f", "image2", vid_save_location + vidid + ".%d.png"]
+    cmd_split = ["ffmpeg", "-i", path_to_vid + vidname, "-r", "24", vid_save_location + vidid + ".%d.png"]
     subprocess.call(cmd_split)
 
 if __name__ == '__main__':
