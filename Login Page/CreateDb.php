@@ -93,8 +93,10 @@ if ($mysqli->query($head) === TRUE) {
 $pupil = "CREATE TABLE IF NOT EXISTS pupil (
 videoID INTEGER NOT NULL,
 frameID INTEGER NOT NULL, 
-FTLeye POINT,
-FTReye POINT)";
+FTLeyeX INTEGER NOT NULL,
+FTLeyeY INTEGER NOT NULL,
+FTReyeX INTEGER NOT NULL,
+FTReyeY INTEGER NOT NULL)";
 
 if ($mysqli->query($pupil) === TRUE) {
 	//echo "Table PUPIL created successfully\n";
