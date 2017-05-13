@@ -60,6 +60,7 @@ a:hover {
 /* ----------------------------------------------------------------------------------------------- */
 
 /* USER PROFILE CSS */
+
 .profile {
     background: rgba(19, 35, 47, 0.9); 
     text-align: center;
@@ -80,6 +81,18 @@ a:hover {
     margin-top: 130px; /*150px center*/
     border-radius: 6px;
     box-shadow: 0 4px 10px 4px rgba(25, 35, 47, 0.5);
+}
+
+.welcome {
+    background: #235145; 
+    padding: 15px;
+    box-shadow: 0 4px 10px 4px rgba(25, 35, 47, 0.5);
+    border-radius: 5px;
+    height: 70px;
+    font-weight: 600;
+    font-family: 'Palatino Linotype', 'Book Antique', Palatino, serif;
+    color: #1ab188;
+    text-shadow: 0px 3px #212b3d;
 }
 
 .user {
@@ -103,6 +116,7 @@ a:hover {
     height: 400px;
     border: 1px solid rgba(26, 177, 136, .2);
     border-left: 2px solid rgba(26, 177, 136, .8);
+    border-radius: 4px;
     margin-bottom: 20px;
 }
 
@@ -136,7 +150,9 @@ a:hover {
     height: 340px;
     padding: inherit;   
     margin: 4px;
-    border: 1px dashed rgba(26, 177, 136, .7);
+   /* background: #235145;*/
+    /*background: rgba(35, 81, 69, .6);*/
+    border-radius: 5px;
 }
 
 #infopanel {
@@ -176,10 +192,49 @@ a:hover {
     -webkit-appearance: none;
 }
 
+.info-wrapper {
+    width: 418px;
+    height: 270px;
+    padding: 2px;
+}
+
 #info {
+    float: left;
     text-align: left;
     color: #1ab188;
     margin: 0px 0px 20px 0px;
+    width: 200px;
+    padding: 0px 3px 0px 5px;
+    height: 215px;
+    border: 2px solid rgba(35, 68, 60, .7);
+    border-radius: 2px;
+}
+
+#extensions-wrapper {
+    position: absolute;
+    height: 50px;
+    width: 418px;
+    margin-top: 5px;
+    padding: 7px 1px;
+    border-top: 2px solid rgba(26, 177, 136, .7);
+}
+
+#extensions {
+    float: left;
+    margin: 3px;
+    height: 40px;
+    width: 410px;
+    text-align: left;
+    color: #1ab188;
+    padding:3px 10px;  
+    border:0 none;
+    -webkit-border-radius: 5px;
+    border-radius: 4px; 
+    background: #235145;
+    border-style: outset;
+    border-color: #0f231e;
+    font: bold 15px arial, sans-serif;
+    text-shadow: 0px 1px #193f35;
 }
 
 #videosheader {
@@ -199,7 +254,7 @@ a:hover {
     height: 335px;
     padding: inherit;   
     margin: 4px;
-    border: 1px dashed rgba(26, 177, 136, .7);  
+   /* border: 1px dashed rgba(26, 177, 136, .7);  */
 }
 
 #uploadvideo {
@@ -218,8 +273,8 @@ a:hover {
 #uploadtab {
     width: 845px;
     height: 43px;
-    padding: 4px;
-    margin: 1px;
+    padding: 10px 4px;
+    margin: 5px 1px;
 }
 
 #file-extension-desc {
