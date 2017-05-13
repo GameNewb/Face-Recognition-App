@@ -187,9 +187,10 @@ void findEyes(cv::Mat frame_gray, cv::Rect face) {
   rightPupil.y += face.y;
   leftPupil.x += face.x;
   leftPupil.y += face.y;
-  std::cout << rightPupil << std::endl;
-  std::cout << leftPupil << std::endl;
-
+  std::cout << rightPupil.x << std::endl;
+  std::cout << rightPupil.y << std::endl;
+  std::cout << leftPupil.x << std::endl;
+  std::cout << leftPupil.y << std::endl;
   //END --->> saira
 
   //-- Find Eye Corners
@@ -284,8 +285,10 @@ void detectAndDisplay( cv::Mat frame ) {
     // if no eyes detected --->> saira
     // printf("No eyes detected\n");
     // needs these output if no eyes detected, preferred output than error display --->> saira
-    std::cout << cv::Point(-1, -1) << std::endl;
-    std::cout << cv::Point(-1, -1) << std::endl;
+    std::cout << -1 << std::endl;
+    std::cout << -1 << std::endl;
+    std::cout << -1 << std::endl;
+    std::cout << -1 << std::endl;
     exit(-1);
   }
 }
