@@ -9,15 +9,9 @@ import os
 import os.path
 import string
 
-myname = sys.argv[0]
-
-if ((len(sys.argv) < 2 or  (len(sys.argv) > 2))):
-    print "syntax: " + myname + " <video-id#>"
-    sys.exit(1)
-
 vidid = sys.argv[1]
 videopath = "videos/"
-videofile = videopath + vidid + ".avi"
+videofile = videopath + vidid + ".mp4"
 imgdir = "frames/"
 
 pointsdir = "points/"
@@ -34,7 +28,7 @@ getcmd = "ffprobe -v 0 -select_streams v:0 -show_entries stream=nb_frames " \
 nb_frames = subprocess.check_output(getcmd, shell=True)
 
 fn = nb_frames.strip()
-print "please wait...this may take over " + fn + " minutes..."
+print "Please wait, processing " + fn + " frames"
 
 for i in xrange(1, int(nb_frames) + 1):
     frameid = '{:d}'.format(i)
@@ -44,9 +38,6 @@ for i in xrange(1, int(nb_frames) + 1):
         sys.exit(2)
 
     tfile = "/tmp/list_det_0.txt"
-
-    # print "processing " + imgfile
-    # print "imgid = " + frameid
     
     getpointscmd = "FaceLandmarkImg -f " + imgfile + " -inroot " + imgdir + " -of list.txt -outroot /tmp"
     a = subprocess.check_output(getpointscmd, shell=True)
@@ -66,4 +57,4 @@ for i in xrange(1, int(nb_frames) + 1):
 
     filep.close()
 
-    print "done frame " + frameid
+    print "Frame " + frameid + " complete"

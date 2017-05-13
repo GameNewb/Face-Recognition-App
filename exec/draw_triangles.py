@@ -7,10 +7,14 @@
 
 import sys
 import os
+import extract_metadata
 
 vidid = sys.argv[1]
+frames = extract_metadata.find_num_frames(vidid)
 
-for i in range(1, 26):
+#print frames
+
+for i in range(1, int(frames) + 1):
     os.system('./delaunay_triangles.py ' + vidid + ' {:d}'.format(i))
 
 

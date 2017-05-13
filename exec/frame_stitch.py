@@ -1,22 +1,23 @@
 #!/usr/bin/env python
 
-#command format: ./frame_stitch [folder with triangle frames] [folder to output new video]
-#---->  example: ./frame_split frames output_video
+#command format: ./frame_stitch [name of video]
+#---->  example: ./frame_split test
 
 import subprocess
 import sys
 import extract_metadata
 
-path_to_vid = "videos/test2.avi"
-input_folder = sys.argv[1]
-output_folder = sys.argv[2]
-vid_id = "output2"
+vidid = sys.argv[1]
+path_to_vid = "videos/" + vidid + ".mp4"
+input_folder = "frames"
+output_folder = "output_video"
+out_vid = vidid + ".output"
 fps = extract_metadata.find_fps(path_to_vid)
 
 
-def stitch_stills(folder_in=input_folder, folder_out=output_folder, name=vid_id):
+def stitch_stills(folder_in=input_folder, folder_out=output_folder, name=out_vid):
     cmd_patch = ["ffmpeg", "-r", str(fps), "-start_number", "1", "-f", "image2", "-i",
-                 folder_in + "/test2.%d.tri.png", "-pix_fmt", "yuv420p",
+                 folder_in + "/" + vidid + ".%d.tri.png", "-pix_fmt", "yuv420p",
                  "-vcodec", "libx264", "-vf", "scale=1280:-2", folder_out + "/" + name + ".mp4"]
     subprocess.call(cmd_patch)
 

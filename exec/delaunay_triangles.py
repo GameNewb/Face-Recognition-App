@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-#command format: ./delaunay_triangles [name of video] [number of frame to be drawn on]
+#command format: ./delaunay_triangles [name of video] [number of the frame to be drawn]
 #---->  example: ./delaunay_triangles test 1
 
 import sys
@@ -12,17 +12,11 @@ import cv2
 import numpy as np
 import random
 
-myname = sys.argv[0]
-
-if ((len(sys.argv) < 3 or  (len(sys.argv) > 3))):
-    print "syntax: " + myname + " <video-id#> <frame-id>"
-    sys.exit(1)
-
 vidid = sys.argv[1]
 frameNum = sys.argv[2]
 
 videopath = "videos/"
-videofile = videopath + vidid + ".avi"
+videofile = videopath + vidid + ".mp4"
 imgdir = "frames/"
 
 frameid = '{:d}'.format(int(frameNum))
@@ -117,8 +111,8 @@ if __name__ == '__main__':
     for pline in spoints.splitlines():
         x, y = pline.split()
 
-        print "pline is " + pline
-        print "x is " + x + " and y is " + y
+        #print "pline is " + pline
+        #print "x is " + x + " and y is " + y
 
         points.append((int(x), int(y)))
         # points.append((float(x), float(y)))
@@ -127,16 +121,16 @@ if __name__ == '__main__':
     for p in points :
         subdiv.insert(p)
          
-    print "ready to draw ..."
+    #print "ready to draw ..."
 
     # Draw delaunay triangles
     draw_delaunay (img, subdiv, (255, 0, 0));
 
-    print "now draw points"
+    #print "now draw points"
  
     # Draw points
     for p in points :
-        print "drawing point"
+        print "Drawing points"
         draw_point(img, p, (0,0,255))
 
     cv2.imwrite(outfile, img);
