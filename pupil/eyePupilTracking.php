@@ -3,7 +3,6 @@
  * Kyle del Castillo
  * Saira Montermoso
  * Luis Rios
- * Tien Tran
  * CS 160
  * Facial Recognition
  */
@@ -46,12 +45,16 @@
  */
 
 // --->> THIS PART IS NOT PERFECT BUT OK TO USE -SAIRA <<---
-if ($argc != 2) {
+if ($argc != 4) {
 	exit("Usage: php <file.php> arg1\n");
 } else {
 	if (is_numeric($argv[1]) && intval($argv[1]) > 0) {
 		$videoID = intval($argv[1]); // use videoId to query the desired info from databases
+        $videoName = $argv[2];
+        $username = $argv[3];
 		printf("arg1 = %d\n", $videoID); // comment out or remove for later --->> SAIRA
+        printf("arg2 = %s\n", $videoName);
+        printf("arg3 = %s\n", $username);
 	} else {
 		exit("Argument value must be a non-negative integer\n");
 	}
@@ -59,7 +62,7 @@ if ($argc != 2) {
 
 // gets the username
 
-$username = $_SESSION['username'];
+//$username = $_SESSION['username'];
 //printf("VideoID = %d\n", $videoID);  // Only for debugging, comment out for later --->> SAIRA
 
 /* database query to get the metadata of input video ID
@@ -68,7 +71,7 @@ $username = $_SESSION['username'];
 
 /* connects to the database */
 // --->> THIS PART NEEDS TO BE CHANGED ask KYLE -SAIRA <<---
-$con = mysqli_connect("localhost", "root", "", "accounts");
+$con = mysqli_connect("127.0.0.1", "root", "", "accounts");
 
 /* Checks the connection */
 if (!$con) {
@@ -98,8 +101,7 @@ if (mysqli_num_rows($result) > 0) {
  */
 
 // read all the frames associated with the video
-// --->> NEED THE PATH TO WHERE THE IMAGES ARE STORED <<---
-$img_path = "/opt/lampp/htdocs/Face-Recognition-App/Login Page/videos/" . $username . "/" . $videoID;
+$img_path = "/opt/lampp/htdocs/Face-Recognition-App/Login Page/videos/" . $username . "/" . $videoName . " Frames";
 $imagefiles = glob($img_path . "/*.png");
 
 // --->> RUN THIS INSIDE A LOOP -saira <<---
@@ -110,7 +112,8 @@ foreach($imagefiles as $image) {
 	$frame_name = explode(".", $frame[9]);
 	$frameID = $frame_name[0];
 	// calls the modified pupil tracking of Mr. Hume
-	exec("/opt/lampp/htdocs/Face-Recognition-App/modified_eyeLike/build/bin/eyeLike $image", $output); 
+	//exec("/opt/lampp/htdocs/Face-Recognition-App/modified_eyeLike/build/bin/eyeLike $image", $output); 
+    exec("/opt/lampp/htdocs/Face-Recognition-App/modified_eyeLike/build/bin/eyeLike ". '"'.$image.'"', $output);
     $rightPupil = $output[0];
     $leftPupil = $output[1];
 
