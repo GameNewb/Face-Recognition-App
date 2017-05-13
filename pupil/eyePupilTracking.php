@@ -111,13 +111,15 @@ foreach($imagefiles as $image) {
 	$frameID = $frame_name[0];
 	// calls the modified pupil tracking of Mr. Hume
 	exec("/opt/lampp/htdocs/Face-Recognition-App/modified_eyeLike/build/bin/eyeLike $image", $output); 
-    $rightPupil = $output[0];
-    $leftPupil = $output[1];
+    $rightPupilx = $output[0];
+    $rightPupily = $output[1];
+    $leftPupilx = $output[2];
+    $leftPupily = $output[3];
 
     unset($output); 
 
     // --->> WRITE TO THE DATABASE THE PUPIL DATA -SAIRA <<---
-    $req = "INSERT INTO pupil (videoID, frameID, FTLeye, FTReye) VALUES ('".$videoID."', '".$frameID."', '".$leftPupil."', '".$rightPupil."')"; 
+    $req = "INSERT INTO pupil (videoID, frameID, FTLeye, FTReye) VALUES ('".$videoID."', '".$frameID."', POINT('".$leftPupilx."', '".$leftPupily."'), POINT('".$rightPupilx."', '".$rightPupily."'))"; 
     $res = mysqli_query($con, $req);
     
     if ($res) {
