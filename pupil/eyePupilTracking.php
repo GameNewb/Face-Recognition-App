@@ -119,7 +119,7 @@ foreach($imagefiles as $image) {
     unset($output); 
 
     // --->> WRITE TO THE DATABASE THE PUPIL DATA -SAIRA <<---
-    $req = "INSERT INTO pupil (videoID, frameID, FTLeye, FTReye) VALUES ('".$videoID."', '".$frameID."', POINT('".$leftPupilx."', '".$leftPupily."'), POINT('".$rightPupilx."', '".$rightPupily."'))"; 
+    $req = "INSERT INTO pupil (videoID, frameID, FTLeyeX, FTLeyeY, FTReyeX, FTReyeY) VALUES ('".$videoID."', '".$frameID."', '".$leftPupilx."', '".$leftPupily."', '".$rightPupilx."', '".$rightPupily."')"; 
     $res = mysqli_query($con, $req);
     
     if ($res) {
