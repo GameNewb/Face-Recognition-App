@@ -1,4 +1,11 @@
 <?php 
+/* programming_project_2.php
+ * Kyle del Castillo
+ * Saira Montermoso
+ * Luis Rios
+ * CS 160
+ * Facial Recognition
+ */
     /* Main page with two forms: sign up and log in */
     require 'CreateDb.php';
     session_start();

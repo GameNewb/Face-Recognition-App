@@ -1,4 +1,11 @@
 <?php
+/* programming_project_3.php
+ * Kyle del Castillo
+ * Saira Montermoso
+ * Luis Rios
+ * CS 160
+ * Facial Recognition
+ */
     /* GET APPROPRIATE VIDEO */
     session_start();
     $db = mysqli_connect("127.0.0.1", "root", "", "accounts");
