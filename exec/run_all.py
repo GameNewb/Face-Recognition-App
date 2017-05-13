@@ -9,7 +9,7 @@ import os
 
 vidid = sys.argv[1]
 
-os.system('./frame_split.py ' + vidid)
+os.system('./frame_split2.py ' + vidid)
 os.system('./getpoints.py ' + vidid)
 os.system('./draw_triangles.py ' + vidid)
 os.system('./frame_stitch.py ' + vidid)
