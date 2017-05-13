@@ -33,8 +33,17 @@
             // User is logged in
             $_SESSION['logged_in'] = true; 
             
-            // Send raw http header a.k.a redirect user to profile page
-            header("location: profile.php"); 
+            // User is not verified
+            if($_SESSION['active'] != 1)
+            {
+                header("location: profile_unverified.php");
+            }
+            else
+            {
+                // Send raw http header a.k.a redirect user to profile page
+                header("location: profile.php"); 
+            }
+            
         }
         else
         {
