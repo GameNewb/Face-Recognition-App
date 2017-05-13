@@ -175,7 +175,7 @@
                                     $videoThumbnail = $row['thumbnail'];
                                     $vidNameOnly = explode('.', $videoName); //Get the name of the vid only
                                     $vidNameOnly[0] = $vidNameOnly[0] .= " Frames";
-                                    $thumbnailLocation = "videos/$username/$vidNameOnly[0]/";
+                                    $thumbnailLocation = "videos/$username/$vidNameOnly[0]/thumbnail";
 
                                     echo '<div id="vidlinks">';
                                     echo "<a href='watch.php?video=$videoName' class='linkers'>
@@ -188,11 +188,19 @@
                         </div>
                         <div id="uploadtab">
                             <div id="fileuploadinfo">
-                                <p id="file-extension-desc">File Extensions Accepted: 
-                                    <br>mp4, flv (50 mb max file size)</p>
+                                <!--<p id="file-extension-desc">File Extensions Accepted: 
+                                    <br>mp4, flv (50 mb max file size)</p>-->
+                                
+                                <form action="upload_file.php" method="POST" enctype="multipart/form-data">
+                                    
+                                    <div id="enabledetection">
+                                        <p>Enable Face Detection during upload: </p>
+                                    </div>
+                                    <div id="checkface">
+                                        <input type="checkbox" name="facedetection" value="face-detection" id="facescripts" onclick="alert('Warning! This will call the face detection scripts and will increase the upload time by a considerable amount. ')"></input>   
+                                    </div>
                             </div>
                             <div id="fileupload">
-                                <form action="upload_file.php" method="post" enctype="multipart/form-data">
                                 <input type="file" name="file" id="file" /> 
 
                             </div>
