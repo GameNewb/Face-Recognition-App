@@ -157,6 +157,7 @@ else
                                 
                                 // Create a folder for each video thumbnail
                                 $vidNameOnly = explode('.', $videoname); //Get the name of the vid only
+                                $vidNamesOnly = $vidNameOnly[0];
                                 $vidNameOnly[0] = $vidNameOnly[0] .= " Frames";
                                 $thumbnailLocation = "videos/" . $username . "/" . $vidNameOnly[0] . "/";
                                 if(!file_exists($thumbnailLocation))
@@ -179,9 +180,18 @@ else
                                 $imageFile = "thumbnail%03d.jpg";
                                 $size = "120x90";
                                 $getFromSecond = 5;
+                                $thumbnailPath = $rootPath . "videos/$username/$vidNameOnly[0]/thumbnail";
+                                
+                                // For linux - create directory
+                                if (!is_dir($thumbnailPath)) {
+                                    // Create mask to allow program to create a directory
+                                    $oldmask = umask(0);
+                                    mkdir($thumbnailPath, 0777, true);
+                                    umask($oldmask);
+                                }
                                 
                                 // Actual command line call
-                                $cmd = "$ffmpeg -ss 00:00:05 -i " . '"' .$videoLoc.'"' . " -frames:v 1 -s $size " .'"'."$rootPath"."videos/$username/$vidNameOnly[0]/$imageFile".'" 2>&1'; 
+                                $cmd = "$ffmpeg -ss 00:00:05 -i " . '"' .$videoLoc.'"' . " -frames:v 1 -s $size " .'"'."$thumbnailPath"."/$imageFile".'" 2>&1'; 
                                 
                                 // If ffmpeg shell command exectues
                                 if(shell_exec($cmd))
@@ -189,7 +199,6 @@ else
                                     // Upload the video thumbnail to the database by updating it
                                     $uploadThumbnail = "UPDATE videos SET thumbnail='thumbnail001.jpg' WHERE username='$username' AND videoName='$videoname' AND videoURL='videos/$username/$random_name.$type'";
                                     $db->query($uploadThumbnail);
-                                   
                                 }
                                 else
                                 {
@@ -212,6 +221,16 @@ else
                                 $oldmask = umask(0);
                                 $stillScript = exec($script);
                                 umask($oldmask);
+                                
+                                if(isset($_POST['facedetection']))
+                                {
+                                    // Obtain the 68 data points from the face
+                                    $faceDetectionScript = "php " . 
+                                        "/opt/lampp/htdocs/Face-Recognition-App/Face_Detection/faceDetection.php " . 
+                                        $videoID . ' "' . $vidNamesOnly. '" '  . $username;
+                                    echo "SCRIPT IS: " . $faceDetectionScript;
+                                    exec($faceDetectionScript);
+                                }
     
                             }
                             elseif($fileExists) // If file exists, return error message
