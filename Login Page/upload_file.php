@@ -50,7 +50,7 @@ else
 </head>
     <body>
         <div class="banner">
-            <a href="/">App Name</a>
+            <a href="/">Face Prop</a>
         </div>
         <div class="uploadsection">
             <div class="upload_info">
@@ -114,38 +114,34 @@ else
                                 $getID = "SELECT videoID FROM videos WHERE username='$username' AND videoName='$videoname'";
                                 $resultID = mysqli_query($db, $getID);
                                 while($row = mysqli_fetch_array($resultID)) {
-                                    
                                     $videoID = $row['videoID'];
                                 }
                                 
-                                
                                 /* EXTRACT METADATA FROM VIDEO */
                                 $targetPath = __DIR__ . "/" . $target;
+                                $metadataScript = "php " . '"' . __DIR__ . "/" . "extract_metadata.php" .   '"' . // The php script
+                                    ' "' . $username . '"' . //The username
+                                    ' "' . $targetPath . '" ' //The video path
+                                    . $videoID; //The video ID
+                                exec($metadataScript);
                                 
-                                 /* EXTRACT NUMBER OF FRAMES */
-                                $numberOfFrames = "ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames -of default=nokey=1:noprint_wrappers=1 " . '"'.$targetPath.'"';
-                                $nframes = shell_exec($numberOfFrames);
+                                // Display metadata info to user
+                                $sqlDisplay = "SELECT nframes, fps, Xwidth, Yheight FROM videos WHERE username='$username' AND  videoID='$videoID'";
+                                $resultDisplay = mysqli_query($db, $sqlDisplay);
+                                while($row = mysqli_fetch_array($resultDisplay))
+                                {
+                                    $fps = $row['fps'];
+                                    $nframes = $row['nframes'];
+                                    $width = $row['Xwidth'];
+                                    $height = $row['Yheight'];
+                                    
+                                    // Display the video details to the user
+                                    echo "Number of Frames: " . $nframes . "<br />";
+                                    echo "Frames Per Second (FPS): " . $fps . "<br />";
+                                    echo "Height: " . $height . "px <br />";
+                                    echo "Width: " . $width . "px <br />";
+                                }
 
-                                /* EXTRACT FPS */
-                                $fps = "ffprobe -v error -select_streams v -of default=noprint_wrappers=1:nokey=1 -show_entries stream=r_frame_rate " . '"'.$targetPath.'"';
-                                
-                                $scriptOutput = explode('/', shell_exec($fps)); //Get the actual number (e.g. r)
-                                $totalCount = (int)$scriptOutput[0]; //Get the first part of the output
-                                $averageCount = (int)$scriptOutput[1]; //Get the second part
-                                $realFPS = round(($totalCount / (float) $averageCount), 2); //Get the real fps by dividing the ffprobe output
-                                
-                                /* EXTRACT HEIGHT */
-                                $height = "ffprobe -v error -select_streams v -of default=noprint_wrappers=1:nokey=1 -show_entries stream=height " . '"'.$targetPath.'"';
-                                $Yheight = shell_exec($height);
-                                
-                                /* EXTRACT WIDTH */
-                                $width = "ffprobe -v error -select_streams v -of default=noprint_wrappers=1:nokey=1 -show_entries stream=width " . '"'.$targetPath.'"';
-                                $Xwidth = shell_exec($width);
-                                
-                                // Update the metadata
-                                $updateMetadata = "UPDATE videos SET nframes='$nframes', fps='$realFPS', Xwidth='$Xwidth', Yheight='$Yheight' WHERE username='$username' AND videoID='$videoID'";
-                                $db->query($updateMetadata);
-                                
                                 
                                 echo "Stored in: " . "videos/" . $username.'/'. $_FILES["file"]["name"];
                                 
@@ -244,9 +240,10 @@ else
                 
             </div> 
             <!-- Redirect user back to profile page after uploading -->
-            <h4>Redirecting to profile page in 10 seconds...</h4> 
+            <h4>Redirecting to profile page in 15 seconds...</h4> 
             <?php
-                header( "refresh: 10; url=profile.php" );
+                $db->close(); 
+                header( "refresh: 15; url=profile.php" );
             ?>
             <a href="profile.php"><button class="button button-block" name="profile"/>Return to Profile</button></a>
         </div> <!-- Upload Box Form -->

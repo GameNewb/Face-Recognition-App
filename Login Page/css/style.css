@@ -71,6 +71,17 @@ a:hover {
     box-shadow: 0 4px 10px 4px rgba(25, 35, 47, 0.5);
 }
 
+.unverified_profile {
+    background: rgba(19, 35, 47, 0.9); 
+    text-align: center;
+    padding: 20px; /*30px*/
+    max-width: 600px;
+    margin: 0px auto;
+    margin-top: 130px; /*150px center*/
+    border-radius: 6px;
+    box-shadow: 0 4px 10px 4px rgba(25, 35, 47, 0.5);
+}
+
 .user {
     float: left;
     text-align: left;
@@ -270,7 +281,7 @@ a:hover {
 .upload_info {
     padding: 5px 5px 0px 5px; /*TOP RIGHT DOWN LEFT */
     width: 460px;
-    height: 200px;
+    height: 310px;
     /*max-width: 600px;*/
     border: 1px solid rgba(26, 177, 136, .2);
     box-shadow: 0 4px 10px 4px rgba(25, 35, 47, 0.2);
