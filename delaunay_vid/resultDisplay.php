@@ -3,7 +3,6 @@
  * Kyle del Castillo
  * Saira Montermoso
  * Luis Rios
- * Tien Tran
  * CS 160
  * Web-based display results
  */
@@ -28,7 +27,7 @@ $username = $_SESSION['username'];
 
 /* connects to the database */
 // --->> THIS PART NEEDS TO BE CHANGED ask KYLE -SAIRA <<---
-$con = mysqli_connect("localhost", "root", "", "accounts");
+$con = mysqli_connect("127.0.0.1", "root", "", "accounts");
 
 /* Checks the connection */
 if (!$con) {

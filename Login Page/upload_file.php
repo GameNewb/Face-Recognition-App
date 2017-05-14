@@ -223,14 +223,21 @@ else
                                 $stillScript = exec($script);
                                 umask($oldmask);
                                 
+                                
+                                // If user checked the check box, initiate face detection scripts
                                 if(isset($_POST['facedetection']))
                                 {
-                                    // Obtain the 68 data points from the face
+                                    // Obtain the 68 data points from the face - programming assignment 4
                                     $faceDetectionScript = "php " . 
                                         "/opt/lampp/htdocs/Face-Recognition-App/Face_Detection/faceDetection.php " . 
                                         $videoID . ' "' . $vidNamesOnly. '" '  . $username;
-                                    echo "SCRIPT IS: " . $faceDetectionScript;
-                                    exec($faceDetectionScript);
+                                    //exec($faceDetectionScript);
+                                    echo "<br />" . "Face Detection Script executed succesfully"; 
+                                    
+                                    // Obtain eye coordinates - programming assignment 5
+                                    $eyeDetectionScript = "php /opt/lampp/htdocs/Face-Recognition-App/pupil/eyePupilTracking.php " . $videoID . ' "' . $vidNamesOnly . '" ' . $username;
+                                    exec($eyeDetectionScript);
+                                    echo "<br />" . "Eye Detection Script executed successfully";
                                 }
     
                             }
