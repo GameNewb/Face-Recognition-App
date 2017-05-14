@@ -14,6 +14,8 @@ The app is currently being developed using HTML/CSS, Javascript, PHP, MySQL, and
 5. OpenFace
 6. OpenCV
 7. eyeLike (by Tristan Hume)
+8. PHP 5.6
+9. Python 2.7 and above
 
 ** : Must be running as an administrator
 
@@ -24,6 +26,7 @@ Note:
 ----------------------
 #### Additional Dependencies:
 - FFMPEG is required for this project to run properly. On Windows, you can simply add an environmental path to the ffmpeg folder and the dependencies will be fixed. On Linux, you must get the appropriate ffmpeg libraries and install it.
+- Since this project uses Python and PHP scripts, PHP and Python are also required to run this project properly.
 - This app uses an email verification feature. As such, you will need to modify your php.ini file as well as your sendmail.ini file (after installing XAMPP).
   + On Windows XAMPP
     - Go to XAMPP directory
