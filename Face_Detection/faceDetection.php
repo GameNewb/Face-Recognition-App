@@ -79,7 +79,7 @@ foreach($imagefiles as $image) {
 	// extracts the frame ID
 	$frame = explode("/", $image);
 	$frame_name = explode(".", $frame[9]);
-	$frameID = $frame_name[0];
+	$frameID = $frame_name[1];
 	// calls the modified FaceLandmarkImg from OpenFace
 	// The modified FaceLandmarkImg 
     $landmark = "FaceLandmarkImg -f " . '"'.$image.'" '. "-of ./output.txt";
