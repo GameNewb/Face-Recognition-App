@@ -54,6 +54,8 @@ if ($argc != 4) {
         $videoName = $argv[2];
         $username = $argv[3];
 		printf("arg1 = %d\n", $videoID); // comment out or remove for later --->> SAIRA
+        printf("arg2 = %s\n", $videoName);
+        printf("arg3 = %s\n", $username);
 	} else {
 		exit("Argument value must be a non-negative integer\n");
 	}
@@ -69,6 +71,7 @@ if ($argc != 4) {
  */
 
 /* connects to the database */
+// --->> THIS PART NEEDS TO BE CHANGED ask KYLE -SAIRA <<---
 $con = mysqli_connect("127.0.0.1", "root", "", "accounts");
 
 /* Checks the connection */
@@ -99,7 +102,6 @@ if (mysqli_num_rows($result) > 0) {
  */
 
 // read all the frames associated with the video
-// --->> NEED THE PATH TO WHERE THE IMAGES ARE STORED <<---
 $img_path = "/opt/lampp/htdocs/Face-Recognition-App/Login Page/videos/" . $username . "/" . $videoName . " Frames";
 $imagefiles = glob($img_path . "/*.png");
 
@@ -111,11 +113,20 @@ foreach($imagefiles as $image) {
 	$frame_name = explode(".", $frame[9]);
 	$frameID = $frame_name[0];
 	// calls the modified pupil tracking of Mr. Hume
-	exec("/opt/lampp/htdocs/Face-Recognition-App/modified_eyeLike/build/bin/eyeLike ". '"'.$image.'"', $output);
+<<<<<<< Updated upstream
+	exec("/opt/lampp/htdocs/Face-Recognition-App/modified_eyeLike/build/bin/eyeLike $image", $output); 
     $rightPupilx = (int)$output[0];
     $rightPupily = (int)$output[1];
     $leftPupilx = (int)$output[2];
     $leftPupily = (int)$output[3];
+=======
+	//exec("/opt/lampp/htdocs/Face-Recognition-App/modified_eyeLike/build/bin/eyeLike $image", $output); 
+    exec("/opt/lampp/htdocs/Face-Recognition-App/modified_eyeLike/build/bin/eyeLike ". '"'.$image.'"', $output);
+    $rightPupilx = $output[0];
+    $rightPupily = $output[1];
+    $leftPupilx = $output[2];
+    $leftPupily = $output[3];
+>>>>>>> Stashed changes
 
     unset($output); 
 

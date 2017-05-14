@@ -22,7 +22,7 @@ if ((($_FILES["file"]["type"] == "video/mp4")       //mp4
         }
         else
         {
-            $fileExists = file_exists("videos/" . $_FILES["file"]["name"]);
+            $fileExists = file_exists("videos/" . $username. "/" . $_FILES["file"]["name"]);
             if($fileExists)
             {
                 $uploadSuccessful = false;
@@ -169,7 +169,6 @@ else
                                         // Create mask to allow program to create a directory
                                         $oldmask = umask(0);
                                         mkdir($thumbnaildir, 0777, true);
-                                        umask($oldmask);
                                     }
                                 }
                                     
@@ -181,17 +180,19 @@ else
                                 $size = "120x90";
                                 $getFromSecond = 5;
                                 $thumbnailPath = $rootPath . "videos/$username/$vidNameOnly[0]/thumbnail";
+                                umask($oldmask);
                                 
                                 // For linux - create directory
                                 if (!is_dir($thumbnailPath)) {
                                     // Create mask to allow program to create a directory
                                     $oldmask = umask(0);
                                     mkdir($thumbnailPath, 0777, true);
-                                    umask($oldmask);
+                                    
                                 }
                                 
                                 // Actual command line call
                                 $cmd = "$ffmpeg -ss 00:00:05 -i " . '"' .$videoLoc.'"' . " -frames:v 1 -s $size " .'"'."$thumbnailPath"."/$imageFile".'" 2>&1'; 
+                                umask($oldmask);
                                 
                                 // If ffmpeg shell command exectues
                                 if(shell_exec($cmd))
