@@ -102,7 +102,7 @@ foreach($imagefiles as $image) {
     
     foreach($output as $pt) {
         // Put the points into file and its directory
-        file_put_contents($pointsFile, print($pt, true), FILE_APPEND | LOCK_EX);
+        file_put_contents($pointsFile, print($pt, true), FILE_APPEND);
     }
     
     
