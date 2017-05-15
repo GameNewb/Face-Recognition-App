@@ -100,8 +100,11 @@ foreach($imagefiles as $image) {
     //$createFile = fopen($pointsFile, "w");
     //$writeFile = fwrite($creatFile, $output);
     
-    // Put the points into file and its directory
-    file_put_contents($pointsFile, print_r($output, true));
+    foreach($output as $pt) {
+        // Put the points into file and its directory
+        file_put_contents($pointsFile, print($pt, true), FILE_APPEND | LOCK_EX);
+    }
+    
     
     if(!empty($output)) {
         // --->> WRITE TO THE DATABASE THE FACE DATA -SAIRA <<---
