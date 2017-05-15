@@ -209,7 +209,7 @@ void write_out_landmarks(const string& outfeatures, const LandmarkDetector::CLNF
 		for (int i = 0; i < n; ++i)
 		{
 			// Use matlab format, so + 1
-			std::cout << clnf_model.detected_landmarks.at<double>(i) + 1 << " " << clnf_model.detected_landmarks.at<double>(i + n) + 1 << endl;
+			std::cout << (int)clnf_model.detected_landmarks.at<double>(i) + 1 << " " << (int)clnf_model.detected_landmarks.at<double>(i + n) + 1 << endl;
 		}
 		//featuresFile << "}" << endl;
         
