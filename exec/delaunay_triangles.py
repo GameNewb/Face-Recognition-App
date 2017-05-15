@@ -22,7 +22,7 @@ vidid = data['videoID']
 frameNum = data['frameID']
 
 videopath = "videos/"
-videofile = videopath + vidid + ".mp4"
+videofile = videopath + str(vidid) + ".mp4"
 imgdir = "frames/"
 
 frameid = '{:d}'.format(int(frameNum))
