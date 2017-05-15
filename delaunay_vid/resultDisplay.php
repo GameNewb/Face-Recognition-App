@@ -80,11 +80,7 @@ $epquery = "SELECT frameID, FTLeyeX, FTLeyeY, FTReyeX, FTReyeY FROM pupil WHERE 
 $epresult = mysqli_query($con, $epquery);
 
 // gets the result of the database query
-<<<<<<< HEAD
-if(mysqli_num_rows($epresult)) {
-=======
 if(mysqli_num_rows($epresult) > 0) {
->>>>>>> master
 	while($mrow = mysqli_fetch_assoc($epresult)) {
 		$id = $mrow['frameID'];
 		$pupil[$id] = array($mrow['FTLeyeX'], $mrow['FTLeyeY'], $mrow['FTReyeX'], $mrow['FTReyeY']); 
@@ -99,24 +95,6 @@ foreach($frameIDS as $frameID) {
 	$output = shell_exec('python /opt/lampp/htdocs/Face-Recognition-App/exec/delaunay_triangles.py ' . escapeshellarg(json_encode($data)) . ' "'.$videoPath.'" ' . '"'.$videoName.'"' );
 
 }
-
-//Instructions for Luis on how to parse json data
-/* On python,
- * import sys, json
- * try:
- *     data = json.loads(sys.argv[1])
- * except:
- *     print("Error loading json data");
- *     sys.exit(1)
- * #to get videoID
- * videoID = data['videoID'] # double check the type of the output value
- * frameID = data['frameID'] # double check not sure about type casting
- * facialPoints = data['facialPoints'][str(frameID)] #if frameID is an integer do str(frameID); if frameID is string, just do frameID
- * #to access facialpoint 1 x coordinate of a frame -->> data['facialPoints'][str(frameID)][0][0] --> 1 if y coordinate
- * pupilData = data['pupilData'][str(frameID)][0] # for leftpupil x coordinate, 1 for y coordinate, 2 for rightpupil x coordinate, 3 for y coordiate
- * #let me know if theres a problem, 
- * # please do generate 0 output if all the frames are drawn with delaunay, means successful, any value if otherwise
- */
 
 // calls the frame_stitch.py to produce the output video
 if ($output == 0) {
