@@ -80,7 +80,11 @@ $epquery = "SELECT frameID, FTLeyeX, FTLeyeY, FTReyeX, FTReyeY FROM pupil WHERE 
 $epresult = mysqli_query($con, $epquery);
 
 // gets the result of the database query
+<<<<<<< HEAD
 if(mysqli_num_rows($epresult)) {
+=======
+if(mysqli_num_rows($epresult) > 0) {
+>>>>>>> master
 	while($mrow = mysqli_fetch_assoc($epresult)) {
 		$id = $mrow['frameID'];
 		$pupil[$id] = array($mrow['FTLeyeX'], $mrow['FTLeyeY'], $mrow['FTReyeX'], $mrow['FTReyeY']); 
