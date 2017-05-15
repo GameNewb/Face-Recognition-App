@@ -90,7 +90,7 @@ if(mysqli_num_rows($con, $epresult)) {
 foreach($frameIDS as $frameID) {
 	$data = array("videoID"=>$videoID, "frameID"=>$frameID, "facialPoints"=>$facialPoints[$frameID], "pupilData"=>$pupil[$frameID]);
 	// this line calls the delaunay_triangle.py written by Luis
-	$output = shell_exec('python /opt/lampp/htdocs/Face-Recognition-App/exec/delaunay_triangles.py ' . escapeshellarg(json_encode($data)))
+	$output = shell_exec('python /opt/lampp/htdocs/Face-Recognition-App/exec/delaunay_triangles.py ' . escapeshellarg(json_encode($data)));
 
 }
 
