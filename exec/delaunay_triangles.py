@@ -3,7 +3,7 @@
 #command format: ./delaunay_triangles [name of video] [number of the frame to be drawn]
 #---->  example: ./delaunay_triangles test 1
 
-import sys
+import sys, json
 import subprocess
 import os
 import os.path
@@ -12,8 +12,14 @@ import cv2
 import numpy as np
 import random
 
-vidid = sys.argv[1]
-frameNum = sys.argv[2]
+try:
+    data = json.loads(sys.argv[1])
+except:
+    print("Error loading json data")
+    sys.exit(1)
+
+vidid = data['videoID']
+frameNum = data['frameID']
 
 videopath = "videos/"
 videofile = videopath + vidid + ".mp4"
@@ -103,18 +109,18 @@ if __name__ == '__main__':
     subdiv = cv2.Subdiv2D(rect);
  
     # Create an array of points.
-    points = [];
+    points = [data['facialPoints']];
 
-    with open(pointsfile, "r") as filep:
-        spoints = filep.read()
+    #with open(pointsfile, "r") as filep:
+      #  spoints = filep.read()
 
-    for pline in spoints.splitlines():
-        x, y = pline.split()
+    #for pline in spoints.splitlines():
+     #   x, y = pline.split()
 
         #print "pline is " + pline
         #print "x is " + x + " and y is " + y
 
-        points.append((int(x), int(y)))
+      #  points.append((int(x), int(y)))
         # points.append((float(x), float(y)))
  
     # Insert points into subdiv
