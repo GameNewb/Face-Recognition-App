@@ -109,7 +109,7 @@ if __name__ == '__main__':
     subdiv = cv2.Subdiv2D(rect);
  
     # Create an array of points.
-    points = [data['facialPoints']];
+    points = [data[['facialPoints'][str(frameID)]]];
 
     #with open(pointsfile, "r") as filep:
       #  spoints = filep.read()
