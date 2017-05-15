@@ -99,12 +99,11 @@ foreach($imagefiles as $image) {
     $pointsFile = $pointsDirectory . "/" . $videoID . "." . $frameID . ".points";
     //$createFile = fopen($pointsFile, "w");
     //$writeFile = fwrite($creatFile, $output);
-    
-    foreach($output as $pt) {
+    foreach ($output as $out) {
         // Put the points into file and its directory
-        file_put_contents($pointsFile, print($pt, true), FILE_APPEND);
+        $out = $out . "\n";
+        file_put_contents($pointsFile, $out, FILE_APPEND);
     }
-    
     
     if(!empty($output)) {
         // --->> WRITE TO THE DATABASE THE FACE DATA -SAIRA <<---
