@@ -8,10 +8,13 @@ import sys
 import extract_metadata
 
 vidid = sys.argv[1]
+videoPath = sys.argv[2];
+videoName = sys.argv[3];
+
 path_to_vid = "videos/" + vidid + ".mp4"
-input_folder = "frames"
-output_folder = "output_video"
-out_vid = vidid + ".output"
+input_folder = videoPath + videoName + " Frames/Delaunay"
+output_folder = videoPath
+out_vid = "VIDEO_" + vidid + ".output"
 fps = 15#extract_metadata.find_fps(path_to_vid)
 
 

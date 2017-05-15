@@ -16,17 +16,18 @@ vidid = sys.argv[1]
 frameNum = sys.argv[2]
 videoPath = sys.argv[3]
 videoName = sys.argv[4]
-username = sys.argv[5]
 
 videopath = "videos/"
-videofile = videopath + vidid + ".mp4"
-imgdir = "frames/"
+videofile = videoPath + videoName + ".mp4"
+imgdir = videoPath + videoName + " Frames/"
+outputdir = imgdir + "Delaunay/"
+
 
 frameid = '{:d}'.format(int(frameNum))
-imgfile = imgdir + vidid + "." + frameid + ".png"
-outfile = imgdir + vidid + "." + frameid + ".tri.png"
+imgfile = imgdir + str(vidid) + "." + frameid + ".png"
+outfile = outputdir + str(vidid) + "." + frameid + ".tri.png"
 
-pointsdir = "points/"
+pointsdir = videoPath + videoName + " Frames/Points/"
 pointsfile = pointsdir + vidid + "." + frameid + ".points"
 
 if not os.path.isfile(videofile):

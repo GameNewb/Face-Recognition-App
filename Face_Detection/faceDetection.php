@@ -75,12 +75,21 @@ $img_path = "/opt/lampp/htdocs/Face-Recognition-App/Login Page/videos/" . $usern
 $imagefiles = glob($img_path . "/*.png");
 
 $pointsDirectory = "/opt/lampp/htdocs/Face-Recognition-App/Login Page/videos/" . $username . "/" . $videoName . " Frames/" . "Points";
+$delaunayDirectory =  "/opt/lampp/htdocs/Face-Recognition-App/Login Page/videos/" . $username . "/" . $videoName . " Frames/" . "Delaunay";
 
 // Create points directory inside the video folder
 if(!is_dir($pointsDirectory))
 {
     $oldmask = umask(0);
     mkdir($pointsDirectory, 0777, true);
+    umask($oldmask);
+}
+
+// Create delaunay triangle folder
+if(!is_dir($delaunayDirectory))
+{
+    $oldmask = umask(0);
+    mkdir($delaunayDirectory, 0777, true);
     umask($oldmask);
 }
 
@@ -97,8 +106,7 @@ foreach($imagefiles as $image) {
     
     //Create a point file for each frame output
     $pointsFile = $pointsDirectory . "/" . $videoID . "." . $frameID . ".points";
-    //$createFile = fopen($pointsFile, "w");
-    //$writeFile = fwrite($creatFile, $output);
+
     foreach ($output as $out) {
         // Put the points into file and its directory
         $out = $out . "\n";

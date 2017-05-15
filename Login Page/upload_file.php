@@ -241,8 +241,8 @@ else
                                     // Use delauney triangle and create a silent video - programming assignment 6
                                     $videoPath = "/opt/lampp/htdocs/Face-Recognition-App/Login Page/videos/" . $username . "/";
                                     $triangleScript = "php " . "/opt/lampp/htdocs/Face-Recognition-App/delaunay_vid/resultDisplay.php " . $videoID. ' "' . $videoPath . '" ' . '"'.$vidNamesOnly.'"';
-                                    echo $triangleScript;
-                                    //exec($triangleScript);
+                                    
+                                    exec($triangleScript);
                                     echo "<br />" . "Delaunay Triangle Script executed successfully";
                                 }
     
