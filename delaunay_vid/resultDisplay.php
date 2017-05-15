@@ -9,17 +9,19 @@
 
 //checks the arguments passed
 //to execute: php resultDisplay.php <videoID>
-if ($argc != 2) {
+if ($argc != 4) {
 	exit("Usage: php <file.php> arg1\n");
 } else {
 	if (is_numeric($argv[1]) && intval($argv[1]) > 0) {
 		$videoID = intval($argv[1]); // use videoId to query the desired info from databases
+        $videoPath = $argv[2];
+        $videoName = $argv[3];
 		printf("arg1 = %d\n", $videoID); // comment out or remove for later --->> SAIRA
 	} else {
 		exit("Argument value must be a non-negative integer\n");
 	}
 }
-$username = $_SESSION['username'];
+//$username = $_SESSION['username'];
 
 /* database query to get the metadata of input video ID
  * Retrieves the number of frames, width (pixels) of each frame (in pixels), height (pixels) of each frame (in pixels)
@@ -78,10 +80,10 @@ $epquery = "SELECT frameID, FTLeyeX, FTLeyeY, FTReyeX, FTReyeY FROM pupil WHERE 
 $epresult = mysqli_query($con, $epquery);
 
 // gets the result of the database query
-if(mysqli_num_rows($con, $epresult)) {
+if(mysqli_num_rows($epresult)) {
 	while($mrow = mysqli_fetch_assoc($epresult)) {
 		$id = $mrow['frameID'];
-		$pupil[$id] = array($mrow['FTLeyeX'], $mrow['FTLeyeY'], $mrow['FTReyeX'], $mrow['FTReyeY']);  
+		$pupil[$id] = array($mrow['FTLeyeX'], $mrow['FTLeyeY'], $mrow['FTReyeX'], $mrow['FTReyeY']); 
 	}
 }
 
@@ -90,7 +92,7 @@ if(mysqli_num_rows($con, $epresult)) {
 foreach($frameIDS as $frameID) {
 	$data = array("videoID"=>$videoID, "frameID"=>$frameID, "facialPoints"=>$facialPoints[$frameID], "pupilData"=>$pupil[$frameID]);
 	// this line calls the delaunay_triangle.py written by Luis
-	$output = shell_exec('python /opt/lampp/htdocs/Face-Recognition-App/exec/delaunay_triangles.py ' . escapeshellarg(json_encode($data)));
+	$output = shell_exec('python /opt/lampp/htdocs/Face-Recognition-App/exec/delaunay_triangles.py ' . escapeshellarg(json_encode($data)) . ' "'.$videoPath.'" ' . '"'.$videoName.'"' );
 
 }
 
@@ -114,7 +116,7 @@ foreach($frameIDS as $frameID) {
 
 // calls the frame_stitch.py to produce the output video
 if ($output == 0) {
-	$vidOutput = shell_exec('python /opt/lampp/htdocs/Face-Recognition-App/exec/frame_stitch.py ' . $videoID);
+	//$vidOutput = shell_exec('python /opt/lampp/htdocs/Face-Recognition-App/exec/frame_stitch.py ' . $videoID);
 } else {
 	echo "Error: Drawing delaunay triangle failed.\n";
 }

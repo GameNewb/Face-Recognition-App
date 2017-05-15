@@ -12,7 +12,7 @@ path_to_vid = "videos/" + vidid + ".mp4"
 input_folder = "frames"
 output_folder = "output_video"
 out_vid = vidid + ".output"
-fps = extract_metadata.find_fps(path_to_vid)
+fps = 15#extract_metadata.find_fps(path_to_vid)
 
 
 def stitch_stills(folder_in=input_folder, folder_out=output_folder, name=out_vid):

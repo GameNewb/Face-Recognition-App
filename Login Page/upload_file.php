@@ -187,13 +187,12 @@ else
                                     // Create mask to allow program to create a directory
                                     $oldmask = umask(0);
                                     mkdir($thumbnailPath, 0777, true);
-                                    
+                                    umask($oldmask);
                                 }
                                 
                                 // Actual command line call
-                                $cmd = "$ffmpeg -ss 00:00:05 -i " . '"' .$videoLoc.'"' . " -frames:v 1 -s $size " .'"'."$thumbnailPath"."/$imageFile".'" 2>&1'; 
-                                umask($oldmask);
-                                
+                                $cmd = "$ffmpeg -ss 00:00:01 -i " . '"' .$videoLoc.'"' . " -frames:v 1 -s $size " .'"'."$thumbnailPath"."/$imageFile".'" 2>&1'; 
+                               
                                 // If ffmpeg shell command exectues
                                 if(shell_exec($cmd))
                                 {
@@ -231,13 +230,20 @@ else
                                     $faceDetectionScript = "php " . 
                                         "/opt/lampp/htdocs/Face-Recognition-App/Face_Detection/faceDetection.php " . 
                                         $videoID . ' "' . $vidNamesOnly. '" '  . $username;
-                                    //exec($faceDetectionScript);
+                                    exec($faceDetectionScript);
                                     echo "<br />" . "Face Detection Script executed succesfully"; 
                                     
                                     // Obtain eye coordinates - programming assignment 5
                                     $eyeDetectionScript = "php /opt/lampp/htdocs/Face-Recognition-App/pupil/eyePupilTracking.php " . $videoID . ' "' . $vidNamesOnly . '" ' . $username;
                                     exec($eyeDetectionScript);
                                     echo "<br />" . "Eye Detection Script executed successfully";
+                                    
+                                    // Use delauney triangle and create a silent video - programming assignment 6
+                                    $videoPath = "/opt/lampp/htdocs/Face-Recognition-App/Login Page/videos/" . $username . "/";
+                                    $triangleScript = "php " . "/opt/lampp/htdocs/Face-Recognition-App/delaunay_vid/resultDisplay.php " . $videoID. ' "' . $videoPath . '" ' . '"'.$vidNamesOnly.'"';
+                                    echo $triangleScript;
+                                    //exec($triangleScript);
+                                    echo "<br />" . "Delaunay Triangle Script executed successfully";
                                 }
     
                             }

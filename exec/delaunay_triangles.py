@@ -14,6 +14,9 @@ import random
 
 try:
     data = json.loads(sys.argv[1])
+    videoPath = sys.argv[2]
+    videoName = sys.argv[3]
+#    username = sys.argv[4]
 except:
     print("Error loading json data")
     sys.exit(1)
@@ -22,15 +25,15 @@ vidid = data['videoID']
 frameNum = data['frameID']
 
 videopath = "videos/"
-videofile = videopath + str(vidid) + ".mp4"
-imgdir = "frames/"
+videofile = videoPath + videoName + ".mp4"
+imgdir = videoPath + videoName + " Frames/"
 
 frameid = '{:d}'.format(int(frameNum))
-imgfile = imgdir + vidid + "." + frameid + ".png"
-outfile = imgdir + vidid + "." + frameid + ".tri.png"
+imgfile = imgdir + str(vidid) + "." + frameid + ".png"
+outfile = imgdir + str(vidid) + "." + frameid + ".tri.png"
 
-pointsdir = "points/"
-pointsfile = pointsdir + vidid + "." + frameid + ".points"
+#pointsdir = "points/"
+#pointsfile = pointsdir + str(vidid) + "." + frameid + ".points"
 
 if not os.path.isfile(videofile):
     print "error: video file " + videofile + " not found."
@@ -40,17 +43,17 @@ if not os.path.isdir(imgdir):
     print "error: frames directory " + imgdir + " not found."
     sys.exit(1)
 
-if not os.path.isdir(pointsdir):
-    print "error: points directory " + pointsdir + " not found."
-    sys.exit(1)
+#if not os.path.isdir(pointsdir):
+#    print "error: points directory " + pointsdir + " not found."
+#    sys.exit(1)
 
 if not os.path.isfile(imgfile):
     print "error: video frame " + imgfile + " not found."
     sys.exit(1)
 
-if not os.path.isfile(pointsfile):
-    print "error: video frame " + pointsfile + " not found."
-    sys.exit(1)
+#if not os.path.isfile(pointsfile):
+#    print "error: video frame " + pointsfile + " not found."
+#    sys.exit(1)
 
 
 # Check if a point is inside a rectangle
@@ -64,19 +67,19 @@ def rect_contains(rect, point) :
     elif point[1] > rect[3] :
         return False
     return True
- 
+
 # Draw a point
 def draw_point(img, p, color ) :
     cv2.circle (img, p, 3, color, cv2.FILLED, cv2.LINE_8, 0)
- 
- 
+
+
 # Draw delaunay triangles
 def draw_delaunay(img, subdiv, delaunay_color ) :
- 
+
     triangleList = subdiv.getTriangleList();
     size = img.shape
     r = (0, 0, size[1], size[0])
- 
+
     for t in triangleList :
         pt1 = (t[0], t[1])
         pt2 = (t[2], t[3])
@@ -85,31 +88,31 @@ def draw_delaunay(img, subdiv, delaunay_color ) :
             cv2.line(img, pt1, pt2, delaunay_color, 1, cv2.LINE_8, 0)
             cv2.line(img, pt2, pt3, delaunay_color, 1, cv2.LINE_8, 0)
             cv2.line(img, pt3, pt1, delaunay_color, 1, cv2.LINE_8, 0)
- 
+
 if __name__ == '__main__':
- 
+
     # Define window names
     win_delaunay = "Delaunay Triangulation"
- 
+
     # Turn on animation while drawing triangles
     animate = True
-     
+
     # Define colors for drawing.
     delaunay_color = (255,0,0)
     points_color = (0, 0, 255)
- 
+
     # Read in the image.
     img = cv2.imread(imgfile);
-     
+
     # Rectangle to be used with Subdiv2D
     size = img.shape
     rect = (0, 0, size[1], size[0])
-     
+
     # Create an instance of Subdiv2D
     subdiv = cv2.Subdiv2D(rect);
- 
+
     # Create an array of points.
-    points = [data[['facialPoints'][str(frameID)]]];
+    points = [data[['facialPoints'][str('frameID')]]];
 
     #with open(pointsfile, "r") as filep:
       #  spoints = filep.read()
@@ -122,18 +125,18 @@ if __name__ == '__main__':
 
       #  points.append((int(x), int(y)))
         # points.append((float(x), float(y)))
- 
+
     # Insert points into subdiv
     for p in points :
         subdiv.insert(p)
-         
+
     #print "ready to draw ..."
 
     # Draw delaunay triangles
     draw_delaunay (img, subdiv, (255, 0, 0));
 
     #print "now draw points"
- 
+
     # Draw points
     for p in points :
         print "Drawing points"

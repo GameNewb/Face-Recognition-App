@@ -74,6 +74,16 @@ if (mysqli_num_rows($result) > 0) {
 $img_path = "/opt/lampp/htdocs/Face-Recognition-App/Login Page/videos/" . $username . "/" . $videoName . " Frames";
 $imagefiles = glob($img_path . "/*.png");
 
+$pointsDirectory = "/opt/lampp/htdocs/Face-Recognition-App/Login Page/videos/" . $username . "/" . $videoName . " Frames/" . "Points";
+
+// Create points directory inside the video folder
+if(!is_dir($pointsDirectory))
+{
+    $oldmask = umask(0);
+    mkdir($pointsDirectory, 0777, true);
+    umask($oldmask);
+}
+
 // --->> RUN THIS INSIDE A LOOP -saira <<---
 foreach($imagefiles as $image) {
 	// extracts the frame ID
@@ -83,11 +93,18 @@ foreach($imagefiles as $image) {
 	// calls the modified FaceLandmarkImg from OpenFace
 	// The modified FaceLandmarkImg 
     $landmark = "FaceLandmarkImg -f " . '"'.$image.'" '. "-of ./output.txt";
-    echo $landmark;
 	exec($landmark, $output); 
-   
+    
+    //Create a point file for each frame output
+    $pointsFile = $pointsDirectory . "/" . $videoID . "." . $frameID . ".points";
+    //$createFile = fopen($pointsFile, "w");
+    //$writeFile = fwrite($creatFile, $output);
+    
+    // Put the points into file and its directory
+    file_put_contents($pointsFile, print_r($output, true));
+    
     if(!empty($output)) {
-        // --->> WRITE TO THE DATABASE THE PUPIL DATA -SAIRA <<---
+        // --->> WRITE TO THE DATABASE THE FACE DATA -SAIRA <<---
         $json_output = json_encode($output);
         $json_output = mysqli_real_escape_string($con, $json_output);
         $req = "INSERT INTO openface (videoID, frameID, OFdata) VALUES ('".$videoID."', '".$frameID."', '".$json_output."')"; 
